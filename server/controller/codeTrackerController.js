@@ -1,14 +1,14 @@
-const productService = require("../services/productService")
+const CodeTrackerService = require("../services/codeTrackerService")
 
-module.exports.createProduct = async (req,res) =>{
+module.exports.createCodeTracker = async (req,res) =>{
     const response = {}    
     try{
-        const responseFromService = await productService.createProduct(req.body)
+        const responseFromService = await CodeTrackerService.createCodeTracker(req.user,req.body)
         response.status = 200
-        response.message = "Product created successfully"
+        response.message = "CodeTracker created successfully"
         response.body = responseFromService
     } catch (err) {
-        console.log("Somthing went wrong in product contoller ", err)
+        console.log("Somthing went wrong in CodeTracker contoller ", err)
         response.status = 400
         response.message = err.message
         response.body = {}
@@ -16,14 +16,14 @@ module.exports.createProduct = async (req,res) =>{
     return res.status(response.status).send(response)
 }
 
-module.exports.getProducts = async (req,res) => {
+module.exports.getCodeTrackers = async (req,res) => {
     const response = {}
     try{
-        const products = await productService.getProducts()
+        const CodeTrackers = await CodeTrackerService.getCodeTrackers()
         response.status = 200
-        response.body = products
+        response.body = CodeTrackers
     }catch(err){
-        console.log("Somthing went wrong in product controller while getProducts :",err)
+        console.log("Somthing went wrong in CodeTracker controller while getCodeTrackers :",err)
         response.status = 400
         response.message = err.message
         response.body = {}
@@ -31,15 +31,15 @@ module.exports.getProducts = async (req,res) => {
     return res.status(response.status).send(response)
 }
 
-module.exports.getProductById = async (req, res)=>{
+module.exports.getCodeTrackerById = async (req, res)=>{
     const response = {}
     try{
         const {id} = req.params
-        const product = await productService.getProductById(id)
+        const CodeTracker = await CodeTrackerService.getCodeTrackerById(id)
         response.status = 200
-        response.body = product
+        response.body = CodeTracker
     }catch(err){
-        console.log("Somthing went wrong in product controller while getProductById :",err)
+        console.log("Somthing went wrong in CodeTracker controller while getCodeTrackerById :",err)
         response.status = 400
         response.message = err.message
         response.body = {}
@@ -47,15 +47,15 @@ module.exports.getProductById = async (req, res)=>{
     return res.status(response.status).send(response)
 }
 
-module.exports.deleteProduct = async (req, res) =>{
+module.exports.deleteCodeTracker = async (req, res) =>{
     const response = {}
     try{
         const {id} = req.params
-        const deleteRes = await productService.deleteProduct(id)
+        const deleteRes = await CodeTrackerService.deleteCodeTracker(id)
         response.status = 200
         response.body = deleteRes
     }catch(err){
-        console.log("Somthing went wrong in product controller while deleteProduct :",err)
+        console.log("Somthing went wrong in CodeTracker controller while deleteCodeTracker :",err)
         response.status = 400
         response.message = err.message
         response.body = {}
@@ -63,16 +63,16 @@ module.exports.deleteProduct = async (req, res) =>{
     return res.status(response.status).send(response)
 }
 
-module.exports.putProduct = async(req, res) => {
+module.exports.putCodeTracker = async(req, res) => {
     const response = {}
     try{
         const { id } = req.params
         const newBody  = req.body
-        const putRes = await productService.putProduct(id, newBody)
+        const putRes = await CodeTrackerService.putCodeTracker(id, newBody)
         response.status = 200
         response.body = putRes
     }catch(err){
-        console.log("Somthing went wrong in product controller while putProduct :",err)
+        console.log("Somthing went wrong in CodeTracker controller while putCodeTracker :",err)
         response.status = 400
         response.message = err.message
         response.body = {}

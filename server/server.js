@@ -19,7 +19,7 @@ connection()
 //Routers
 app.use('/auth',require('./routes/auth'))
 app.use('/user',require('./routes/user'))
-app.use("/product",require('./routes/productRouters'))
+app.use("/codeTracker",require('./routes/codeTrackerRouter'))
 
 app.listen(PORT,()=>{
     console.log(`Server is listening on port ${PORT}`)
