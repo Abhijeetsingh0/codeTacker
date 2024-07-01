@@ -1,20 +1,15 @@
 const User =  require("../database/model/user")
+const CodeTracker = require("../database/model/codeTracker")
 
-module.exports.deleteUser =  async (email, id) => {
-    try{
-        await deleteAllTrackForUserHelper(email)
-        const delUser = await User.deleteOne({_id:id})
+module.exports.deleteUser =  async (id) => {
+    try{      
+        const user = await User.findById({_id:id})
+        const delCode = await CodeTracker.deleteMany({email:user.email})
+        const delUser = await User.findByIdAndDelete({_id:id})
+        return delUser,delCode
+
     }catch(err){
         console.log("somthing went wrong while in userDelete service :",err)
-    }
-    return delUser
-}
-
-const deleteAllTrackForUserHelper =  async (email) => {
-    try{
-        const deleteAllTrackForUser = await User.deleteMany({email:email})
-    }catch(err){
-        console.log("somthing went wrong while in deleteAllTrackForUserHelper service :",err)
     }
 }
 

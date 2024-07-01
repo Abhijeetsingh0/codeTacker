@@ -10,7 +10,7 @@ module.exports.createCodeTracker = async (user ,codeTrackerData) => {
             tags: codeTrackerData.tags,
             email: user.email
         });
-        return await new CodeTracker.save();
+        return await newCodeTracker.save();
     } catch (err) {
         console.log("Something went wrong while creating CodeTracker: ", err);
         throw err;  // Rethrow the error for further handling if necessary

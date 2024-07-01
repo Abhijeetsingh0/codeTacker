@@ -3,7 +3,7 @@ const UserService = require("../services/user")
 module.exports.deleteUser = async (req, res) => {
     const response = {}
     try{
-        const delUser = await UserService.deleteUserService(req.params)
+        const delUser = await UserService.deleteUser(req.params.id)
         response.status = 200
         response.message = "User : "+req.user.username+", email: "+req.user.email+" is removed with all code-track"
         response.body = delUser
