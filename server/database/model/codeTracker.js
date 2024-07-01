@@ -15,6 +15,7 @@ const codeTrackerSchema = new mongoose.Schema({
     },
     tags: {
         type: [],
+        required: true
     },
     email: {
         type: String,

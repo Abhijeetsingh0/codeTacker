@@ -10,17 +10,16 @@ module.exports.createCodeTracker = async (user ,codeTrackerData) => {
             tags: codeTrackerData.tags,
             email: user.email
         });
-        return await newCodeTracker.save();
+        return await new CodeTracker.save();
     } catch (err) {
         console.log("Something went wrong while creating CodeTracker: ", err);
         throw err;  // Rethrow the error for further handling if necessary
     }
 };
 
-module.exports.getCodeTrackers = async () => {
+module.exports.getCodeTrackers = async (email) => {
     try{
-        const CodeTrackers = await CodeTracker.find();
-        return CodeTrackers
+        return await CodeTracker.find({email: email});
     }catch (err){
         console.log("somthing went wrong while getCodeTrackers service :",err)
     }
@@ -44,14 +43,12 @@ module.exports.deleteCodeTracker = async (id) => {
 
 module.exports.putCodeTracker = async (id, newBody) => {
     try{
-        console.log(id, newBody)
-        const CodeTracker = await CodeTracker.findByIdAndUpdate(
+        const codeTracker = await CodeTracker.findByIdAndUpdate(
             id, 
             { $set: newBody }, 
             { new: true, useFindAndModify: false }
           );
-        console.log(CodeTracker)
-        return CodeTracker
+        return codeTracker
     }catch(err){
         console.log("somthing went wrong while putCodeTracker service :",err)
     }

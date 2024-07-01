@@ -1,9 +1,9 @@
-const userService = require("../services/user")
+const UserService = require("../services/user")
 
 module.exports.deleteUser = async (req, res) => {
     const response = {}
     try{
-        const delUser = await userService.deleteUserService(req.params)
+        const delUser = await UserService.deleteUserService(req.params)
         response.status = 200
         response.message = "User : "+req.user.username+", email: "+req.user.email+" is removed with all code-track"
         response.body = delUser
@@ -15,6 +15,21 @@ module.exports.deleteUser = async (req, res) => {
     }
     return res.status(response.status).send(response)
 }
+
+module.exports.getAllUsers = async (req, res) => {
+    const response = {}
+    try{
+        const allUsers = await UserService.getAllUsers()
+        response.status = 200
+        response.body = allUsers
+    }catch(err){
+        console.log("somthing went wrong in getAllUser controller :",err)
+        response.status = 400
+        response.message = err.message
+        response.body = {}
+    }
+    return res.status(response.status).send(response)
+} 
 
 module.exports.getUser = async (req, res) => {
     const response = {}

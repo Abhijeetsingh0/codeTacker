@@ -2,7 +2,7 @@ const User =  require("../database/model/user")
 
 module.exports.deleteUser =  async (email, id) => {
     try{
-        const delAllUser = await deleteAllTrackForUserHelper(email)
+        await deleteAllTrackForUserHelper(email)
         const delUser = await User.deleteOne({_id:id})
     }catch(err){
         console.log("somthing went wrong while in userDelete service :",err)
@@ -17,3 +17,11 @@ const deleteAllTrackForUserHelper =  async (email) => {
         console.log("somthing went wrong while in deleteAllTrackForUserHelper service :",err)
     }
 }
+
+module.exports.getAllUsers = async () => {
+    try{
+        return await User.find()
+    }catch(err){
+        console.log("somthing went wrong while in getAllUsers service :",err)
+    }
+} 

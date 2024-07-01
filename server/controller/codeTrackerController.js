@@ -16,10 +16,11 @@ module.exports.createCodeTracker = async (req,res) =>{
     return res.status(response.status).send(response)
 }
 
-module.exports.getCodeTrackers = async (req,res) => {
+module.exports.getCodeTrackers = async (req, res) => {
     const response = {}
     try{
-        const CodeTrackers = await CodeTrackerService.getCodeTrackers()
+        const user = req.user
+        const CodeTrackers = await CodeTrackerService.getCodeTrackers(user.email)
         response.status = 200
         response.body = CodeTrackers
     }catch(err){
@@ -66,11 +67,21 @@ module.exports.deleteCodeTracker = async (req, res) =>{
 module.exports.putCodeTracker = async(req, res) => {
     const response = {}
     try{
+        
         const { id } = req.params
-        const newBody  = req.body
-        const putRes = await CodeTrackerService.putCodeTracker(id, newBody)
-        response.status = 200
-        response.body = putRes
+        const newBody  = {... req.body, email:req.user.email}
+        const getCodePost = await CodeTrackerService.getCodeTrackerById(id)
+        if(getCodePost.email == req.user.email){
+            const putRes = await CodeTrackerService.putCodeTracker(id, newBody)
+            response.status = 200
+            response.body = putRes
+        }else{
+            console.log("Can not update other user code")
+            response.status = 400
+            response.message = "Can not update other user code"
+            response.body = {}
+        }
+        
     }catch(err){
         console.log("Somthing went wrong in CodeTracker controller while putCodeTracker :",err)
         response.status = 400

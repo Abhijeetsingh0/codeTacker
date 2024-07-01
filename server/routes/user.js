@@ -9,7 +9,8 @@ const router = express.Router();
 // });
 
 router.get('/profile', authenticate, UserController.getUser)
-router.delete("/profile/:id",adminAuth ,UserController.deleteUser)
+router.get('/allUsers', adminAuth, UserController.getAllUsers)
+router.delete("/profile/:id", adminAuth, UserController.deleteUser)
 
 
 module.exports = router;
