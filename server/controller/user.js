@@ -5,7 +5,6 @@ module.exports.deleteUser = async (req, res) => {
     try{
         const delUser = await UserService.deleteUser(req.params.id)
         response.status = 200
-        response.message = "User : "+req.user.username+", email: "+req.user.email+" is removed with all code-track"
         response.body = delUser
     }catch(err){    
         console.log("somthing went wrong in deleteUser controller :",err)

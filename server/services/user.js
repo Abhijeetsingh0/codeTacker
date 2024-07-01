@@ -6,7 +6,7 @@ module.exports.deleteUser =  async (id) => {
         const user = await User.findById({_id:id})
         const delCode = await CodeTracker.deleteMany({email:user.email})
         const delUser = await User.findByIdAndDelete({_id:id})
-        return delUser,delCode
+        return user.email,delCode
 
     }catch(err){
         console.log("somthing went wrong while in userDelete service :",err)
