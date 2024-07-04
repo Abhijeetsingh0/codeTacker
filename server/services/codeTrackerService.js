@@ -6,6 +6,7 @@ module.exports.createCodeTracker = async (user ,codeTrackerData) => {
         const newCodeTracker = new CodeTracker({
             quesLink: codeTrackerData.quesLink,
             problemStatement: codeTrackerData.problemStatement,
+            programingLanguage: codeTrackerData.programingLanguage,
             solution: codeTrackerData.solution,
             tags: codeTrackerData.tags,
             email: user.email

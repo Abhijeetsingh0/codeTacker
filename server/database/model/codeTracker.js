@@ -9,6 +9,11 @@ const codeTrackerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    programingLanguage: {
+        type: String,
+        required: true
+    }
+    ,
     solution: {
         type: String,
         required: true
@@ -32,6 +37,7 @@ module.exports = mongoose.model("codeTrack", codeTrackerSchema);
 // {
 //     "quesLink": "https://example.com/problem/123",
 //     "problemStatement": "Write a function to reverse a string.",
+//     "programingLanguage": "python",
 //     "solution": "function reverseString(str) { return str.split('').reverse().join(''); }",
 //     "tags": ["string", "algorithm", "beginner"],
 //     "email": "user@example.com"
