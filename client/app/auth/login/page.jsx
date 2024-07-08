@@ -3,12 +3,16 @@ import { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation'
+import { useGlobalDispatch, useGlobalState } from '@/contexts/globalStataeContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+
+  const dispatch = useGlobalDispatch()
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +29,8 @@ const Login = () => {
       // Set the token in a cookie with a TTL of 1 hour (3600 seconds)
       Cookies.set('token', token, { expires: 1 / 24 });
       
+      dispatch({type: 'SET_TOKEN', payload: token})
+
       // Redirect to homepage or any other page
       router.push('/');
     } catch (error) {

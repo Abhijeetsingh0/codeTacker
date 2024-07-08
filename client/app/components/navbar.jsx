@@ -4,10 +4,13 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getTokenFromCookie } from './getTokenFromCookie';
 import LogoutButton from './logout';
+import { useGlobalState } from '@/contexts/globalStataeContext';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  const {token} = useGlobalState()
 
   useEffect(() => {
     const token = getTokenFromCookie
@@ -37,6 +40,7 @@ const Navbar = () => {
             <Link href="/auth/login" className="block md:inline-block text-white hover:text-gray-400">Login</Link>
           )}
           <Link href="/about" className="block md:inline-block text-white hover:text-gray-400">About</Link>
+      
         </div>
       </div>
     </nav>
