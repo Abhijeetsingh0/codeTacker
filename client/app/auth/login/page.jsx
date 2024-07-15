@@ -3,7 +3,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation'
-import { useGlobalDispatch, useGlobalState } from '@/contexts/globalStataeContext';
+import { useGlobalDispatch } from '@/contexts/globalStataeContext';
+import {getTokenFromContext, getTokenFromCookie, getUserFromCookie} from '@/app/components/getUserData'
+import { useEffect } from 'react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,6 +15,12 @@ const Login = () => {
 
   const dispatch = useGlobalDispatch()
   
+  useEffect(()=>{
+    const tokenCookie = getTokenFromCookie
+    if(tokenCookie){
+      router.push('/dashboard')
+    }
+  },[])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,16 +31,17 @@ const Login = () => {
         email,
         password,
       });
-
       const token = response.data.token;
 
       // Set the token in a cookie with a TTL of 1 hour (3600 seconds)
       Cookies.set('token', token, { expires: 1 / 24 });
-      
-      dispatch({type: 'SET_TOKEN', payload: token})
 
+      dispatch({type: 'SET_TOKEN', payload: token})
       // Redirect to homepage or any other page
-      router.push('/');
+      window.location.reload()
+
+      router.push('/dashboard');
+
     } catch (error) {
       alert('Login failed: ' + error.message);
     } finally {

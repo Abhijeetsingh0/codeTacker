@@ -7,7 +7,8 @@ const Logout = () => {
 
   const handleLogout = () => {
     Cookies.remove('token');
-    router.push('/');
+    window.location.reload()
+    router.push('/')
   };
 
   return (

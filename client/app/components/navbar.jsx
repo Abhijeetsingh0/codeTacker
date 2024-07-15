@@ -1,19 +1,17 @@
-'use client'
+'use client';
 // components/Navbar.js
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getTokenFromCookie } from './getTokenFromCookie';
+import { getTokenFromCookie } from './getUserData';
 import LogoutButton from './logout';
-import { useGlobalState } from '@/contexts/globalStataeContext';
+// import { useGlobalState } from '@/contexts/globalStateContext';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const {token} = useGlobalState()
-
   useEffect(() => {
-    const token = getTokenFromCookie
+    const token = getTokenFromCookie;
     setIsLoggedIn(!!token);
   }, []);
 
@@ -24,23 +22,45 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-800 p-4 text-white">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-lg font-bold">CodeTracker</Link>
+        <Link href="/" className="text-lg font-bold">
+          CodeTracker
+        </Link>
         <button className="md:hidden" onClick={toggleMenu}>
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
           </svg>
         </button>
-        <div className={`md:flex ${isOpen ? 'block' : 'hidden'} space-x-4`}>
+        <div
+          className={`md:flex items-center space-x-4 ${
+            isOpen ? 'block' : 'hidden'
+          }`}
+        >
           {isLoggedIn ? (
             <>
-              <Link href="/dashboard" className="block md:inline-block text-white hover:text-gray-400">Dashboard</Link>
+              <Link href="/dashboard" className="block md:inline-block text-white hover:text-gray-400">
+                Dashboard
+              </Link>
               <LogoutButton />
             </>
           ) : (
-            <Link href="/auth/login" className="block md:inline-block text-white hover:text-gray-400">Login</Link>
+            <Link href="/auth/login" className="block md:inline-block text-white hover:text-gray-400">
+              Login
+            </Link>
           )}
-          <Link href="/about" className="block md:inline-block text-white hover:text-gray-400">About</Link>
-      
+          <Link href="/about" className="block md:inline-block text-white hover:text-gray-400">
+            About
+          </Link>
         </div>
       </div>
     </nav>
