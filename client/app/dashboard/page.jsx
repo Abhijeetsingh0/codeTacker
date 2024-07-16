@@ -5,13 +5,21 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {getTokenFromCookie} from "@/app/components/getUserData"
 import Link  from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Dashboard = () => {
 
   const [userData, setUserData] = useState({})
   const [codeTrack , setCodeTrack] = useState([])
 
+  const router = useRouter()
+
   const fetchCodeTrack = async () =>{
+
+      if(!getTokenFromCookie){
+        router.push("/auth/login")
+      }
+
       await axios.get('http://localhost:8000/codeTracker/',{
         headers: {
           'authorization': `Barer ${getTokenFromCookie}`
@@ -37,6 +45,13 @@ const Dashboard = () => {
     fetchCodeTrack()
 
   },[])
+
+
+  const codeCard = () =>{
+    return (
+      <div>hi</div>
+    )
+  }
 
   return (
     <div>
@@ -68,8 +83,16 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <div>
+       {
+        codeTrack.map((data,index)=>(
+          <div onClick={()=>router.push(`/dashboard/${data._id}/`)} key={index}>{data.quesLink}</div>
+        ))
+       }
+      </div>
     </div>
   );
 };
+
 
 export default withAuth(Dashboard);
