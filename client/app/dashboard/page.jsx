@@ -69,7 +69,7 @@ const Dashboard = () => {
           </button>
         </Link>
       </div>
-      <div className="container mx-auto px-4 mt-10">
+      <div className="container mx-auto px-4 mt-10 mb-8">
         <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
           {/* First content block */}
           <div className="bg-gray-100 p-4 flex-1">
@@ -83,10 +83,15 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div className='container mt-3'>
        {
         codeTrack.map((data,index)=>(
-          <div onClick={()=>router.push(`/dashboard/${data._id}/`)} key={index}>{data.quesLink}</div>
+          <div key={index} className='flex  bg-zinc-200 shadow-lg shadow-gray-400/50 p-4 pr-4 mt-3 mb-3 ml-5 rounded hover:text-xl text-justify'>
+            <div className='flex-auto w-3/5 overflow-auto pr-16' > {data.problemStatement.slice(0,130)} ...</div>
+            <div className='flex-auto pl-3 w-1/5 '> <button className='pl-7 pr-7 pt-2 pb-2 border bg-emerald-400 rounded' onClick={()=>router.push(`/dashboard/${data._id}/`)} > View </button> </div>
+            <div className='flex-auto pl-3 w-1/5' > felx </div>
+          </div>
+          // <div className='text-pretty hover:text-xl border p-3' onClick={()=>router.push(`/dashboard/${data._id}/`)} key={index}>{data.quesLink}</div>
         ))
        }
       </div>
