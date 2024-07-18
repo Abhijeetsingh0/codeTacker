@@ -33,7 +33,6 @@ const Code = ({ params }) => {
   };
 
   const deleteCodeTrack = async () => {
-    setCodeDeleting(true)
     try{
       const response = axios.delete(`http://localhost:8000/codeTracker/${params._id}`,{
         headers:{

@@ -9,10 +9,10 @@ const withAuth = (WrappedComponent) => {
       const router = useRouter();
       
       useEffect(()=>{
-        console.log(getTokenFromCookie)
+        // console.log(getTokenFromCookie)
         if(!getTokenFromCookie){
           router.push('/auth/login/')
-          window.location.reload()
+          window.location.replace('/auth/login')
         }
       })
 

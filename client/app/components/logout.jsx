@@ -1,14 +1,15 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import withAuth from './withAuth';
 
 const Logout = () => {
   const router = useRouter();
 
   const handleLogout = () => {
     Cookies.remove('token');
-    window.location.reload()
-    router.push('/')
+    router.push('/auth/login')
+    window.location.replace('/auth/login')
   };
 
   return (
@@ -18,4 +19,4 @@ const Logout = () => {
   );
 };
 
-export default Logout
+export default withAuth(Logout)

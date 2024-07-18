@@ -2,7 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import {getTokenFromCookie} from "@/app/components/getUserData"
-import {useRouter} from 'next/router'
+import {useRouter} from 'next/navigation'
 import withAuth from "@/app/components/withAuth";
 import Loading from "@/app/components/loading";
 
@@ -15,7 +15,7 @@ const CodeForm = () => {
     tags: []
   });
 
-  const router = useRouter
+  const router = useRouter()
 
   const [isSubmitting, setIsSubmitting] = useState(false); // To manage submission state
 
@@ -77,6 +77,9 @@ const CodeForm = () => {
       } catch (error) {
           console.error('Something went wrong:', error.response ? error.response.data : error.message);
          } 
+      
+      //once submitted route to dashboard
+      router.push('/dashboard')
       // Handle form submission, e.g., send data to an API
       setIsSubmitting(false); // Reset submitting state
     }
