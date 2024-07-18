@@ -28,6 +28,7 @@ module.exports.getCodeTrackers = async (email) => {
 
 module.exports.getCodeTrackerById = async (id) => {
     try{
+        console.log(id)
         return await CodeTracker.findById(id)
     }catch(err){
         console.log("somthing went wrong while getCodeTrackerById service :",err)

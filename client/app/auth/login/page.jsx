@@ -38,7 +38,7 @@ const Login = () => {
 
       dispatch({type: 'SET_TOKEN', payload: token})
       // Redirect to homepage or any other page
-      window.location.reload()
+      window.location.replace('/dashboard')
 
       router.push('/dashboard');
 

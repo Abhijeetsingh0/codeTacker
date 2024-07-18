@@ -20,7 +20,7 @@ const CodeTrackSection = ({ codeTrack }) => {
         <div className='flex-auto pl-3 w-1/5'>
           <button
             className='ml-8 pl-8 pr-8 pt-2 pb-2 border bg-emerald-400 rounded'
-            onClick={() => router.push(`/dashboard/${data._id}/`)}
+            onClick={() => router.push(`/codeTrack/${data._id}/`)}
           >
             View
           </button>
@@ -71,7 +71,7 @@ const Dashboard = () => {
   return (
     <div className='container'>
       <div className='flex justify-center m-10'>
-        <Link href='/dashboard/codeform'>
+        <Link href='/codeTrack/codeFormPage'>
           <button title='Add new code' className="flex items-center justify-center w-16 h-16 bg-emerald-400 text-white rounded-full shadow-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 ease-in-out">
             <svg
               fill="none"
