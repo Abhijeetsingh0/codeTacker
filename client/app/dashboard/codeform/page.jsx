@@ -4,6 +4,7 @@ import axios from "axios";
 import {getTokenFromCookie} from "@/app/components/getUserData"
 import {useRouter} from 'next/router'
 import withAuth from "@/app/components/withAuth";
+import Loading from "@/app/components/loading";
 
 const CodeForm = () => {
   const [formData, setFormData] = useState({
@@ -70,8 +71,9 @@ const CodeForm = () => {
                   'Authorization': `Bearer ${getTokenFromCookie}`
               }
           });
-          alert("code is submitted",response)
+
           router.push('/dashboard')
+
       } catch (error) {
           console.error('Something went wrong:', error.response ? error.response.data : error.message);
          } 
@@ -80,22 +82,26 @@ const CodeForm = () => {
     }
   };
 
+  if(isSubmitting){
+    <Loading message={"Submitting...."} />
+  }
+
   return (
-    <div className="max-w-3xl mx-auto mt-10 p-6 bg-white text-gray-800 shadow-lg rounded-xl">
+    <div className="container mt-10 mb-8 bg-zinc-200 shadow-lg shadow-gray-400/50 rounded-xl pl-32 pr-32 pb-16 pt-8">
       <h1 className="text-3xl font-bold mb-6 text-center">
-        Problem Form
+        Save your code
       </h1>
       
       <form className="space-y-6" onSubmit={handleSubmit}>
         
         <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-          <label className="block text-gray-700 font-semibold mb-1">Programming Language</label>
+          <label className="block text-gray-700 font-semibold mb-1 ">Programming Language</label>
           <input
             type="text"
             name="programingLanguage"
             value={formData.programingLanguage}
             onChange={handleChange}
-            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-xl bg-zinc-50 shadow-lg shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           />
         </div>
 
@@ -106,7 +112,7 @@ const CodeForm = () => {
             name="quesLink"
             value={formData.quesLink}
             onChange={handleChange}
-            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-xl bg-zinc-50 shadow-lg shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           />
         </div>
 
@@ -117,7 +123,7 @@ const CodeForm = () => {
             value={formData.problemStatement}
             onChange={handleChange}
             rows="3"
-            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-xl bg-zinc-50 shadow-lg shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           />
         </div>
 
@@ -128,7 +134,7 @@ const CodeForm = () => {
             value={formData.solution}
             onChange={handleChange}
             rows="20"
-            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-xl bg-zinc-50 shadow-lg shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           />
         </div>
 
@@ -138,7 +144,7 @@ const CodeForm = () => {
             {formData.tags.map((tag, index) => (
               <span
                 key={index}
-                className="bg-gray-200 text-gray-800 px-3 py-1 rounded-full flex items-center font-semibold shadow-md"
+                className="bg-zinc-50 text-gray-800 px-3 py-1 rounded-xl flex items-center font-semibold shadow-md"
               >
                 {tag}
                 <button
@@ -155,7 +161,7 @@ const CodeForm = () => {
             type="text"
             placeholder="Add a tag and press Enter"
             onKeyDown={handleTagChange}
-            className="mt-1 block w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-xl shadow-lg shadow-gray-400/50 bg-zinc-50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           />
         </div>
 

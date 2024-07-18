@@ -13,7 +13,7 @@ const Code = ({ params }) => {
 
   const router = useRouter();
 
-  const fetchCodeDetails = async (id) => {
+  const fetchCodeDetails = async () => {
     try {
       const response = axios.get(`http://localhost:8000/codeTracker/${params._id}`, {
         headers: {
@@ -32,6 +32,22 @@ const Code = ({ params }) => {
     }
   };
 
+  const deleteCodeTrack = async () => {
+    setCodeDeleting(true)
+    try{
+      const response = axios.delete(`http://localhost:8000/codeTracker/${params._id}`,{
+        headers:{
+          Authorization: `Bearer ${getTokenFromCookie}`,
+        }
+      })
+      router.push('/dashboard')
+    }catch(err){
+      console.log(`somthing went wrong while deleteing code id ${params._id} with error ${err}`)
+    }finally{
+      router.push('/dashboard')
+    }
+  }
+
   const formatDate = (isoString) => {
     const date = new Date(isoString);
     const options = {
@@ -49,7 +65,7 @@ const Code = ({ params }) => {
     if (getTokenFromCookie === undefined) {
       router.push('/auth/login');
     }
-    fetchCodeDetails(params._id);
+    fetchCodeDetails();
   }, []);
 
   if (loading) {
@@ -71,7 +87,7 @@ const Code = ({ params }) => {
   return (
     <div>
       <div className="container mx-auto mt-4 grid grid-cols-3 items-center">
-        <div></div>
+        <div className=''></div>
         <div className="mb-5 bg-zinc-200 shadow-lg shadow-gray-400/50 p-2 rounded-full text-xl justify-self-center sm:justify-self-center sm:w-2/3 w-full">
           <a href={codeDetails.quesLink} className="block text-center">Question Link</a>
         </div>
@@ -87,6 +103,10 @@ const Code = ({ params }) => {
           <button className='bg-zinc-200 shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 mb-3 ml-5 rounded-full' onClick={() => setCodeSize('text-base')}>Medium</button>
           <button className='bg-zinc-200 shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 mb-3 ml-5 rounded-full' onClick={() => setCodeSize('text-xl')}>Large</button>
         </div>
+
+        <button onClick={()=>deleteCodeTrack()} className='mt-4 bg-red-400 shadow-lg shadow-red-400/50 p-1 pl-4 pr-4 rounded-xl text-xl'>Delete</button>
+        <button onClick={()=>{}} className='mt-4 ml-8 bg-cyan-300 shadow-lg shadow-cyan-400/50 p-1 pl-8 pr-8 rounded-xl text-xl'>Edit</button>
+
         <h2 className='bold text-2xl mb-2 mt-5 underline'>Problem statment</h2>
         <pre className={`border border-zinc-600 p-3 overflow-auto ${codeSize}`}>{codeDetails.problemStatement}</pre>
 

@@ -11,12 +11,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth focus:scroll-auto">
       <body className="">
-        <ErrorBoundary>
+        {/* <ErrorBoundary> */}
           <GlobalProvider>
             <Navbar/>
             {children} 
           </GlobalProvider>
-        </ErrorBoundary>
+        {/* </ErrorBoundary> */}
       </body>
     </html>
   );

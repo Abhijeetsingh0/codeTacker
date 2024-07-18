@@ -20,9 +20,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4 text-white">
+    <nav className="bg-gray-800 p-6 text-white text-xl">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-lg font-bold">
+        <Link href="/" className="font-bold text-2xl">
           CodeTracker
         </Link>
         <button className="md:hidden" onClick={toggleMenu}>
@@ -46,21 +46,21 @@ const Navbar = () => {
             isOpen ? 'block' : 'hidden'
           }`}
         >
+          <Link href="/about" className="block md:inline-block text-white hover:text-gray-400 pr-4">
+            About
+          </Link>
           {isLoggedIn ? (
             <>
-              <Link href="/dashboard" className="block md:inline-block text-white hover:text-gray-400">
+              <Link href="/dashboard" className="block md:inline-block text-white hover:text-gray-400 pr-4">
                 Dashboard
               </Link>
               <LogoutButton />
             </>
           ) : (
-            <Link href="/auth/login" className="block md:inline-block text-white hover:text-gray-400">
+            <Link href="/auth/login" className="block md:inline-block text-white hover:text-gray-400 pr-4">
               Login
             </Link>
           )}
-          <Link href="/about" className="block md:inline-block text-white hover:text-gray-400">
-            About
-          </Link>
         </div>
       </div>
     </nav>
