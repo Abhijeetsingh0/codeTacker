@@ -13,8 +13,10 @@ export default function RootLayout({ children }) {
       <body className="">
         {/* <ErrorBoundary> */}
           <GlobalProvider>
-            <Navbar/>
-            {children} 
+           
+              <Navbar/>
+              {children} 
+            
           </GlobalProvider>
         {/* </ErrorBoundary> */}
       </body>

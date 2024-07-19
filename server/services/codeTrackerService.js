@@ -26,9 +26,17 @@ module.exports.getCodeTrackers = async (email) => {
     }
 }
 
+module.exports.getCodeTrackerCalender = async (email) => {
+    try{
+        const response = await CodeTracker.find({email: email});
+        return response.map(a=>(a.updatedAt))
+    }catch (err){
+        console.log("somthing went wrong while getCodeTrackers service :",err)
+    }
+}
+
 module.exports.getCodeTrackerById = async (id) => {
     try{
-        console.log(id)
         return await CodeTracker.findById(id)
     }catch(err){
         console.log("somthing went wrong while getCodeTrackerById service :",err)

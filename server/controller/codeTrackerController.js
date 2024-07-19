@@ -32,6 +32,22 @@ module.exports.getCodeTrackers = async (req, res) => {
     return res.status(response.status).send(response)
 }
 
+module.exports.getCodeTrackerCalender = async (req, res) =>{
+    const response = {}
+    try{
+        const user = req.user
+        const CodeTrackers = await CodeTrackerService.getCodeTrackerCalender(user.email)
+        response.status = 200
+        response.body = CodeTrackers
+    }catch(err){
+        console.log("Somthing went wrong in CodeTracker controller while getCodeTrackers :",err)
+        response.status = 400
+        response.message = err.message
+        response.body = {}
+    }
+    return res.status(response.status).send(response)
+}
+
 module.exports.getCodeTrackerById = async (req, res)=>{
     const response = {}
     try{

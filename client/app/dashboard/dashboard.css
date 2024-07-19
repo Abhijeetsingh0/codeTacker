@@ -1,0 +1,11 @@
+.highlight-date {
+    background-color: #34d399;
+    color: rgb(0, 0, 0);
+    border-radius: 5%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 0 0 3px white;
+}

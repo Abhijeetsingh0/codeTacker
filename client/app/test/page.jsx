@@ -1,10 +1,12 @@
 'use client'
-import {getTokenFromCookie} from "@/app/components/getTokenFromCookie"
-import Cookies from "js-cookie"
+import Calendar from "react-calendar"
+import 'react-calendar/dist/Calendar.css';
 
 const test = () => {
   return (
-    <div>test </div>
+    <div>
+      <Calendar activeStartDate={new Date} />
+    </div>
   )
 }
 

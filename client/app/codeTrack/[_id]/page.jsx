@@ -7,12 +7,6 @@ import { useRouter } from 'next/navigation';
 import Loading from "@/app/components/loading"
 // import CodeEdit from "./edit/edit"
 
-const CodeEdit = ({data, id}) => {
-  
-
-
-};
-
 const Code = ({ params }) => {
   const [codeDetails, setCodeDetails] = useState({});
   const [loading, setLoading] = useState(true);
@@ -20,7 +14,7 @@ const Code = ({ params }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [codeSize, setCodeSize] = useState('md');
   const [formData, setFormData] = useState();
-  const [isSubmitting, setIsSubmitting] = useState(false); // To manage submission state
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
 
@@ -52,7 +46,6 @@ const Code = ({ params }) => {
   };
 
   const isFormValid = () => {
-    // Check if all required fields are filled
     return (
       formData.programingLanguage.trim() &&
       formData.quesLink.trim() &&
@@ -82,9 +75,7 @@ const Code = ({ params }) => {
       } catch (error) {
           console.error('Something went wrong:', error.response ? error.response.data : error.message);
          } 
-      
-      //once submitted route to dashboard
-      // Handle form submission, e.g., send data to an API
+
       setIsSubmitting(false); // Reset submitting state
     }
   };
@@ -286,10 +277,8 @@ const Code = ({ params }) => {
         <h2 className='bold text-2xl mb-2 mt-5 underline'>Problem statment</h2>
         <pre className={`border border-zinc-600 p-3 overflow-auto ${codeSize}`}>{codeDetails.problemStatement}</pre>
 
-        
-
         <h2 className='bold text-2xl mb-2 mt-8 underline'>Solution</h2>
-        <pre className={`border border-zinc-600 p-3 overflow-auto ${codeSize}`}>{codeDetails.solution}</pre>
+        <pre className={`border border-zinc-600 p-3 overflow-auto mb-16 ${codeSize}`}>{codeDetails.solution}</pre>
 
       </div>
     </div>

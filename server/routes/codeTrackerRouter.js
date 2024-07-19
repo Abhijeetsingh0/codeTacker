@@ -5,6 +5,7 @@ const {authenticate} = require("../middlewares/auth")
 
 router.post("/", authenticate, CodeTrackerController.createCodeTracker)
 router.get("/", authenticate, CodeTrackerController.getCodeTrackers)
+router.get('/getCodeTrackerCalendar',authenticate,CodeTrackerController.getCodeTrackerCalender)
 router.get("/:id", authenticate, CodeTrackerController.getCodeTrackerById)
 router.put("/:id", authenticate, CodeTrackerController.putCodeTracker)
 router.delete("/:id",authenticate,CodeTrackerController.deleteCodeTracker)

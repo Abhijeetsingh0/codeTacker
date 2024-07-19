@@ -7,10 +7,10 @@ import {getTokenFromCookie} from "@/app/components/getUserData"
 import Link  from 'next/link';
 import { useRouter } from 'next/navigation';
 import Loading from '../components/loading';
+import CalenderPage from './calender';
 
 const CodeTrackSection = ({ codeTrack }) => {
   const router = useRouter();
-
   return codeTrack.map((data, index) => (
     <div key={index}>
       <div className='flex bg-zinc-200 shadow-lg shadow-gray-400/50 p-4 pr-4 mt-4 mb-4 ml-5 rounded hover:text-xl text-justify'>
@@ -33,6 +33,7 @@ const CodeTrackSection = ({ codeTrack }) => {
 const Dashboard = () => {
   const [userData, setUserData] = useState({});
   const [codeTrack, setCodeTrack] = useState({ loading: true, data: [] });
+  const [pageInit , setPageInit] = useState(false)
   const router = useRouter();
 
   const fetchCodeTrack = async () => {
@@ -54,19 +55,29 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchUserProfileData = async () => {
-      try {
-        const data = await fetchUserProfile();
-        setUserData(data.body);
-      } catch (error) {
-        console.error("Something went wrong while fetching the user data in dashboard", error);
-      }
-    };
+  const fetchUserProfileData = async () => {
+    try {
+      const data = await fetchUserProfile();
+      setUserData(data.body);
+    } catch (error) {
+      console.error("Something went wrong while fetching the user data in dashboard", error);
+    }
+  };
 
+  useEffect(() => {
+    setPageInit(true)
     fetchUserProfileData();
-    fetchCodeTrack();
+    fetchCodeTrack()
+    setPageInit(false)
   }, []); // Empty dependency array to run once on mount
+
+  if(pageInit){
+    return(
+      <div>
+        <Loading />
+      </div>
+    )
+  }
 
   return (
     <div className='container'>
@@ -86,13 +97,14 @@ const Dashboard = () => {
       </div>
       <div className="mx-auto px-4 mt-10 mb-8">
         <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
-          <div className="bg-gray-100 p-4 flex-1">
-            <h2 className="text-lg font-bold">Content 1</h2>
-            <p>{userData['username']} component comes here</p>
+          <div className=" bg-zinc-200 shadow-lg shadow-gray-400/50 rounded-xl p-4 flex-1">
+            <h2 className="text-lg font-bold">User Details</h2>
+            <h3>Username: {userData['username']}</h3>
+            <h3>Email: {userData['email']}</h3>
           </div>
-          <div className="bg-gray-100 p-4 flex-1">
-            <h2 className="text-lg font-bold">Content 2</h2>
-            <p>This is the second piece of content.</p>
+          <div className=" bg-zinc-200 shadow-lg shadow-gray-400/50 rounded-xl p-4 flex-1">
+            <h2 className="text-lg font-bold">Activity</h2>
+            <CalenderPage />
           </div>
         </div>
       </div>
