@@ -255,7 +255,7 @@ const Code = ({ params }) => {
     <div>
       <div className="container mx-auto mt-4 grid grid-cols-3 items-center">
         <div className=''></div>
-        <div className="mb-5 bg-zinc-200 shadow-lg shadow-gray-400/50 p-2 rounded-full text-xl justify-self-center sm:justify-self-center sm:w-2/3 w-full">
+        <div className="mb-5 bg-emerald-400 shadow-lg bg-emerald-400/50 p-2 rounded-full text-xl justify-self-center sm:justify-self-center sm:w-2/3 w-full">
           <a href={codeDetails.quesLink} className="block text-center">Question Link</a>
         </div>
         <div className="text-right">

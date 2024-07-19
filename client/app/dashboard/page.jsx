@@ -8,6 +8,7 @@ import Link  from 'next/link';
 import { useRouter } from 'next/navigation';
 import Loading from '../components/loading';
 import CalenderPage from './calender';
+import DoughnutChart from './doughnutChart';
 
 const CodeTrackSection = ({ codeTrack }) => {
   const router = useRouter();
@@ -97,13 +98,13 @@ const Dashboard = () => {
       </div>
       <div className="mx-auto px-4 mt-10 mb-8">
         <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
-          <div className=" bg-zinc-200 shadow-lg shadow-gray-400/50 rounded-xl p-4 flex-1">
+          <div className=" bg-zinc-200 shadow-lg shadow-gray-400/50 rounded-xl p-4 basis-2/5">
             <h2 className="text-lg font-bold">User Details</h2>
-            <h3>Username: {userData['username']}</h3>
-            <h3>Email: {userData['email']}</h3>
+          {!codeTrack.loading && (<div><DoughnutChart data={codeTrack.data}/></div>)}
+             
           </div>
-          <div className=" bg-zinc-200 shadow-lg shadow-gray-400/50 rounded-xl p-4 flex-1">
-            <h2 className="text-lg font-bold">Activity</h2>
+          <div className=" bg-zinc-200 shadow-lg shadow-gray-400/50 rounded-xl p-4 basis-3/5">
+            <h2 className="text-lg font-bold mb-8">Activity</h2>
             <CalenderPage />
           </div>
         </div>
