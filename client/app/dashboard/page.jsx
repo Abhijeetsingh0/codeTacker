@@ -1,26 +1,26 @@
 'use client'
-import withAuth from '../components/withAuth'; // Adjust the import path as needed
-import {fetchUserProfile} from '../components/getUserData'
+import withAuth from '@/app/components/withAuth';
+import {fetchUserProfile} from '@/app/components/getUserData'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {getTokenFromCookie} from "@/app/components/getUserData"
 import Link  from 'next/link';
 import { useRouter } from 'next/navigation';
-import Loading from '../components/loading';
+import Loading from '@/app/components/loading';
 import CalenderPage from './calender';
 import DoughnutChart from './doughnutChart';
 
 const CodeTrackSection = ({ codeTrack }) => {
   const router = useRouter();
   return codeTrack.map((data, index) => (
-    <div key={index}>
-      <div className='flex bg-zinc-200 shadow-lg shadow-gray-400/50 p-4 pr-4 mt-4 mb-4 ml-5 rounded hover:text-xl text-justify'>
+    <div key={index} className='mb-32'>
+      <div className='flex bg-white shadow-lg shadow-gray-400/50 p-4 pr-4 mt-4 mb-4 ml-5 rounded hover:text-xl text-justify'>
         <div className='flex-auto w-4/5 overflow-auto pl-4 pr-16 border-r-4 border-emerald-300'>
           {data.problemStatement.slice(0, 150)} ...
         </div>
         <div className='flex-auto pl-3 w-1/5'>
           <button
-            className='ml-8 pl-8 pr-8 pt-2 pb-2 border bg-emerald-400 rounded'
+            className='ml-8 pl-8 pr-8 pt-2 pb-2 border bg-emerald-500 rounded'
             onClick={() => router.push(`/codeTrack/${data._id}/`)}
           >
             View
@@ -84,7 +84,7 @@ const Dashboard = () => {
     <div className='container'>
       <div className='flex justify-center m-10'>
         <Link href='/codeTrack/codeFormPage'>
-          <button title='Add new code' className="flex items-center justify-center w-16 h-16 bg-emerald-400 text-white rounded-full shadow-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 ease-in-out">
+          <button title='Add new code' className="flex items-center justify-center w-16 h-16 bg-emerald-500 text-white rounded-full shadow-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 ease-in-out">
             <svg
               fill="none"
               viewBox="0 0 24 24"
@@ -98,19 +98,19 @@ const Dashboard = () => {
       </div>
       <div className="mx-auto px-4 mt-10 mb-8">
         <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0">
-          <div className=" bg-zinc-200 shadow-lg shadow-gray-400/50 rounded-xl p-4 basis-2/5">
-            <h2 className="text-lg font-bold">User Details</h2>
+          <div className="bg-white shadow-lg shadow-gray-400/50 rounded-xl p-4 basis-2/5">
+            <h2 className="text-lg font-bold pb-4">User Details</h2>
           {!codeTrack.loading && (<div><DoughnutChart data={codeTrack.data}/></div>)}
              
           </div>
-          <div className=" bg-zinc-200 shadow-lg shadow-gray-400/50 rounded-xl p-4 basis-3/5">
+          <div className="bg-white shadow-lg shadow-gray-400/50 rounded-xl p-4 basis-3/5">
             <h2 className="text-lg font-bold mb-8">Activity</h2>
             <CalenderPage />
           </div>
         </div>
       </div>
       <hr className='mb-8'></hr>
-      <div className=''>
+      <div>
         {codeTrack.loading ? 
           <Loading/> :
           <CodeTrackSection codeTrack={codeTrack.data} />

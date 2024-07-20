@@ -3,8 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import axios from 'axios';
-import { getTokenFromCookie } from '@/app/components/getUserData';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -43,7 +41,7 @@ const doughnutChart = ({data}) => {
     
     return (
         <div>
-            {chartData.labels ? <Doughnut className='' data={chartData} /> : <p>Loading...</p>}
+            {chartData.labels ? <Doughnut data={chartData} /> : <p>Loading...</p>}
         </div>
     );
 };

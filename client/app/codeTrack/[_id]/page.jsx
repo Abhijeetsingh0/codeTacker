@@ -15,8 +15,18 @@ const Code = ({ params }) => {
   const [codeSize, setCodeSize] = useState('md');
   const [formData, setFormData] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [tagColors, setTagColors] = useState([]);
 
   const router = useRouter();
+
+  const generateColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -133,13 +143,19 @@ const Code = ({ params }) => {
   };
 
   useEffect(() => {
-    
     if (getTokenFromCookie === undefined) {
       router.push('/auth/login');
     }
 
     fetchCodeDetails();
   }, []);
+
+  useEffect(() => {
+    if (formData && formData.tags) {
+      const colors = formData.tags.map(() => generateColor());
+      setTagColors(colors);
+    }
+  }, [formData]);
 
   if (loading) {
     return (
@@ -255,7 +271,7 @@ const Code = ({ params }) => {
     <div>
       <div className="container mx-auto mt-4 grid grid-cols-3 items-center">
         <div className=''></div>
-        <div className="mb-5 bg-emerald-400 shadow-lg bg-emerald-400/50 p-2 rounded-full text-xl justify-self-center sm:justify-self-center sm:w-2/3 w-full">
+        <div className="mb-5 bg-emerald-500 shadow-lg bg-emerald-400/50 p-2 rounded-full text-xl justify-self-center sm:justify-self-center sm:w-2/3 w-full">
           <a href={codeDetails.quesLink} className="block text-center">Question Link</a>
         </div>
         <div className="text-right">
@@ -266,19 +282,34 @@ const Code = ({ params }) => {
       <div className='container mx-auto px-4'>
         <div>Click to change the size</div>
         <div className="flex justify-start">
-          <button className='bg-zinc-200 shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 mb-3 rounded-full' onClick={() => setCodeSize('text-xs')}>Small</button>
-          <button className='bg-zinc-200 shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 mb-3 ml-5 rounded-full' onClick={() => setCodeSize('text-base')}>Medium</button>
-          <button className='bg-zinc-200 shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 mb-3 ml-5 rounded-full' onClick={() => setCodeSize('text-xl')}>Large</button>
+          <button className='font-semibold bg-white shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 mb-3 rounded-full' onClick={() => setCodeSize('text-xs')}>Small</button>
+          <button className='font-semibold bg-white shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 mb-3 ml-5 rounded-full' onClick={() => setCodeSize('text-base')}>Medium</button>
+          <button className='font-semibold bg-white shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 mb-3 ml-5 rounded-full' onClick={() => setCodeSize('text-xl')}>Large</button>
         </div>
 
         <button onClick={()=>deleteCodeTrack()} className='mt-4 bg-red-400 shadow-lg shadow-red-400/50 p-1 pl-4 pr-4 rounded-xl text-xl'>Delete</button>
         <button onClick={()=>{setIsEditing(true)}} className='mt-4 ml-8 bg-cyan-300 shadow-lg shadow-cyan-400/50 p-1 pl-8 pr-8 rounded-xl text-xl'>Edit</button>
 
-        <h2 className='bold text-2xl mb-2 mt-5 underline'>Problem statment</h2>
-        <pre className={`border border-zinc-600 p-3 overflow-auto ${codeSize}`}>{codeDetails.problemStatement}</pre>
+        <h2 className='font-bold text-2xl mb-2 mt-5 underline'>Tags</h2>
+        <div className="grid grid-col-12 sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-2 ">
+          {
+            codeDetails.tags.map((tag, index) => (
+              <span 
+                key={index} 
+                style={{ backgroundColor: tagColors[index], color: "white" }} 
+                className="border rounded-full m-2 pl-4 pr-4 p-1 font-semibold"
+              >
+                {tag.length > 7 ? tag.slice(0,5)+'..' : tag }
+              </span>
+            ))
+          }
+        </div>
 
-        <h2 className='bold text-2xl mb-2 mt-8 underline'>Solution</h2>
-        <pre className={`border border-zinc-600 p-3 overflow-auto mb-16 ${codeSize}`}>{codeDetails.solution}</pre>
+        <h2 className='font-bold text-2xl mb-2 mt-5 underline'>Problem statment</h2>
+        <pre className={`bg-white border border-zinc-600 p-3 overflow-auto ${codeSize}`}>{codeDetails.problemStatement}</pre>
+
+        <h2 className='font-bold text-2xl mb-2 mt-8 underline'>Solution</h2>
+        <pre className={`bg-white border border-zinc-600 p-3 overflow-auto mb-16 ${codeSize}`}>{codeDetails.solution}</pre>
 
       </div>
     </div>
