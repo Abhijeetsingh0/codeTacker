@@ -13,7 +13,7 @@ const Logout = () => {
   };
 
   return (
-    <button onClick={handleLogout} className="p-2 bg-red-500 text-white rounded">
+    <button onClick={handleLogout} className="px-2 py-1 bg-red-500 text-white rounded">
       Logout
     </button>
   );

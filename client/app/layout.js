@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/components/navbar"
 import { GlobalProvider } from "@/contexts/globalStataeContext";
-import ErrorBoundary  from "./components/errorBoundary";
+import Footer from "@/app/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,9 +15,9 @@ export default function RootLayout({ children }) {
           <GlobalProvider>
            
               <Navbar />
-            
                 {children} 
-            
+              <Footer />
+
           </GlobalProvider>
         {/* </ErrorBoundary> */}
       </body>

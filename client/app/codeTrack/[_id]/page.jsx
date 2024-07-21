@@ -291,13 +291,13 @@ const Code = ({ params }) => {
         <button onClick={()=>{setIsEditing(true)}} className='mt-4 ml-8 bg-cyan-300 shadow-lg shadow-cyan-400/50 p-1 pl-8 pr-8 rounded-xl text-xl'>Edit</button>
 
         <h2 className='font-bold text-2xl mb-2 mt-5 underline'>Tags</h2>
-        <div className="grid grid-col-12 sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-2 ">
+        <div className="grid grid-col-12 gap-x-8 content-center items-center self-center xs:grid-cols-2 sm:grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-2 ">
           {
             codeDetails.tags.map((tag, index) => (
               <span 
                 key={index} 
-                style={{ backgroundColor: tagColors[index], color: "white" }} 
-                className="border rounded-full m-2 pl-4 pr-4 p-1 font-semibold"
+                // style={{ backgroundColor: tagColors[index], color: "white" }} 
+                className="font-semibold bg-white shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 rounded-full"
               >
                 {tag.length > 7 ? tag.slice(0,5)+'..' : tag }
               </span>

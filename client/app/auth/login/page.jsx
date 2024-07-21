@@ -53,7 +53,7 @@ const Login = () => {
   const isFormValid = () => email && password;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
+    <div className="min-h-full flex flex-col items-center justify-center mt-16">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md bg-white">
         <h2 className="text-2xl font-bold mb-6">Login</h2>
         <form onSubmit={handleSubmit}>
