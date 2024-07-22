@@ -71,9 +71,7 @@ const CodeForm = () => {
                   'Authorization': `Bearer ${getTokenFromCookie}`
               }
           });
-
           router.push('/dashboard')
-
       } catch (error) {
           console.error('Something went wrong:', error.response ? error.response.data : error.message);
          } 

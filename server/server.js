@@ -4,6 +4,7 @@ const dotEnv = require("dotenv")
 const connection = require("./database/connection");
 const cors = require("cors")
 const bodyParser = require("body-parser")
+const path = require('path')
 
 dotEnv.config();
 
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3001
 //request payload middleware
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use('./uploads',express.static(path.join(__dirname,"uploads")))
 
 app.use(cors());
 connection()
