@@ -5,7 +5,6 @@ import withAuth from '@/app/components/withAuth';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Loading from "@/app/components/loading"
-// import CodeEdit from "./edit/edit"
 
 const Code = ({ params }) => {
   const [codeDetails, setCodeDetails] = useState({});
@@ -15,18 +14,8 @@ const Code = ({ params }) => {
   const [codeSize, setCodeSize] = useState('md');
   const [formData, setFormData] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [tagColors, setTagColors] = useState([]);
 
   const router = useRouter();
-
-  const generateColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -149,13 +138,6 @@ const Code = ({ params }) => {
 
     fetchCodeDetails();
   }, []);
-
-  useEffect(() => {
-    if (formData && formData.tags) {
-      const colors = formData.tags.map(() => generateColor());
-      setTagColors(colors);
-    }
-  }, [formData]);
 
   if (loading) {
     return (
@@ -296,8 +278,7 @@ const Code = ({ params }) => {
             codeDetails.tags.map((tag, index) => (
               <span 
                 key={index} 
-                // style={{ backgroundColor: tagColors[index], color: "white" }} 
-                className="font-semibold bg-white shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 rounded-full"
+                className="bg-white shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 rounded-full"
               >
                 {tag.length > 7 ? tag.slice(0,5)+'..' : tag }
               </span>

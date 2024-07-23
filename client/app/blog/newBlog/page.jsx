@@ -5,7 +5,6 @@ import Loading from "@/app/components/loading";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import withAuth from "@/app/components/withAuth";
-import Image from "next/image";
 
 const newBlog = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,7 +31,7 @@ const newBlog = () => {
         setImages([...images,e.target.files[0]]);
         setFormData((prev)=>({
           ...prev,
-          content: formData.content+" @"+e.target.files[0].name+" "
+          content: formData.content+" @img("+e.target.files[0].name+") "
         }))
     };
 
@@ -130,7 +129,7 @@ const newBlog = () => {
                     </div>
                 )
             }
-            
+
             <form className="space-y-6 rounded-lg" onSubmit={handleSubmit}>
                 <div className="bg-gray-100 p-4 rounded-lg shadow-md">
                     <label className="block text-gray-700 font-semibold mb-1">Title</label>

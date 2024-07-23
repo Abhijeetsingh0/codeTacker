@@ -81,7 +81,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='container'>
+    <div className='container mb-16'>
       <div className='flex justify-center m-10'>
         <Link href='/codeTrack/codeFormPage'>
           <button title='Add new code' className="flex items-center justify-center w-16 h-16 bg-emerald-500 text-white rounded-full shadow-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 ease-in-out">
