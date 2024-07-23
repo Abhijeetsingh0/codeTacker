@@ -5,12 +5,8 @@ module.exports.createBlog = async (req, res) => {
     const response = {};
     const user = req.user;
     const files = req.files;
-
     const imageUrl = files ? await Promise.all(files.map(file => uploadToMinIO(file.path, file.filename, user.email))) : [];
     const data = { ...req.body, email: user.email, images: imageUrl };
-
-    console.log("Data to save:", data);
-
     try {
         const responseFromService = await createBlog(data);
         response.status = 200;
