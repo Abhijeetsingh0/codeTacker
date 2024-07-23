@@ -1,93 +1,72 @@
 'use client'
-
-import React, { useEffect, useState } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-import axios from 'axios';
+import { useState } from 'react';
 import { getTokenFromCookie } from '../components/getUserData';
+import axios from 'axios';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+const CreateBlog = () => {
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [images, setImages] = useState([]);
 
-const DoughnutChart = () => {
-    const [chartData, setChartData] = useState({});
+    const handleImageChange = (e) => {
+        setImages(Array.from(e.target.files));
+    };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:8000/codeTracker/', {
-                  headers: {
-                    'authorization': `Bearer ${getTokenFromCookie}`, // Correct spelling of "Bearer"
-                  },
-                });
-                console.log(response)
-                const data = response.data;
-              
-                // Process data to get tag frequencies
-                const tagCounts = processData(data);
-                
-                // Map tags to colors
-                const tags = Object.keys(tagCounts);
-                const tagColors = mapTagsToColors(tags);
-                
-                // Prepare chart data
-                const chartData = {
-                    labels: tags,
-                    datasets: [
-                        {
-                            label: 'Tags',
-                            data: Object.values(tagCounts),
-                            backgroundColor: tags.map(tag => tagColors[tag]),
-                            borderColor: tags.map(tag => tagColors[tag]),
-                            borderWidth: 1,
-                        },
-                    ],
-                };
-                
-                setChartData(chartData);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        
-        fetchData();
-    }, []);
-    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('commentId', 'cdsacasdcdasc')
+        images.forEach(image => {
+            formData.append('image', image);
+        });
+        console.log(formData)
+        try {
+            const response = await axios.post("http://localhost:8000/blog/", formData ,{
+                headers: {
+                    'Authorization': `Bearer ${getTokenFromCookie}`
+                }
+            });
+            
+            router.push('/dashboard')
+  
+        } catch (error) {
+            console.error('Something went wrong:', error.response ? error.response.data : error.message);
+        } 
+    };
+
     return (
-        <div>
-            {chartData.labels ? <Doughnut data={chartData} /> : <p>Loading...</p>}
-        </div>
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label>Title</label>
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                />
+            </div>
+            <div>
+                <label>Content</label>
+                <textarea
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    required
+                />
+            </div>
+            <div>
+                <label>Images</label>
+                <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleImageChange}
+                />
+            </div>
+            <button type="submit">Create Blog</button>
+        </form>
     );
 };
 
-const processData = (data) => {
-    const tagCounts = {};
-    data.body.forEach(entry => {
-        entry.tags.forEach(tag => {
-            if (tagCounts[tag]) {
-                tagCounts[tag]++;
-            } else {
-                tagCounts[tag] = 1;
-            }
-        });
-    });
-    return tagCounts;
-};
-
-const generateColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-};
-
-const mapTagsToColors = (tags) => {
-    const tagColors = {};
-    tags.forEach(tag => {
-        tagColors[tag] = generateColor();
-    });
-    return tagColors;
-};
-
-export default DoughnutChart;
+export default CreateBlog;

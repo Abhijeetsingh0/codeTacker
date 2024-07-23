@@ -13,7 +13,7 @@ import DoughnutChart from './doughnutChart';
 const CodeTrackSection = ({ codeTrack }) => {
   const router = useRouter();
   return codeTrack.map((data, index) => (
-    <div key={index} className='mb-32'>
+    <div key={index} className=''>
       <div className='flex bg-white shadow-lg shadow-gray-400/50 p-4 pr-4 mt-4 mb-4 ml-5 rounded hover:text-xl text-justify'>
         <div className='flex-auto w-4/5 overflow-auto pl-4 pr-16 border-r-4 border-emerald-300'>
           {data.problemStatement.slice(0, 150)} ...

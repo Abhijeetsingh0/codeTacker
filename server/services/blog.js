@@ -1,15 +1,15 @@
 const blog = require("../database/model/blog")
 
-module.exports.createBlog = async ({quesId, content, commentId, email}) =>{
-    console.log("here")
+module.exports.createBlog = async ({quesId, title, images,content, commentId, email}) =>{
     try{
         const newBlog = new blog({
             quesId: quesId,
+            images: images,
+            title:title,
             commentId: commentId,
             content: content,
             email: email
         });
-        console.log(newBlog)
         return await newBlog.save();
     }catch(err){
         console.log("Something went wrong while creating blog: ", err);
