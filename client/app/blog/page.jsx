@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react';
 import { getTokenFromCookie } from '../components/getUserData';
 import axios from 'axios';
+import withAuth from '../components/withAuth';
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
@@ -65,4 +66,4 @@ const BlogList = () => {
   );
 }
 
-export default BlogList;
+export default withAuth(BlogList);

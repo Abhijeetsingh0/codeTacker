@@ -54,6 +54,9 @@ const Navbar = () => {
               <Link href="/dashboard" className="block md:inline-block text-white hover:text-gray-400 pr-4">
                 Dashboard
               </Link>
+              <Link href="/blog" className="block md:inline-block text-white hover:text-gray-400 pr-4">
+                Blog
+              </Link>
               <LogoutButton />
             </>
           ) : (
