@@ -10,16 +10,17 @@ const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth focus:scroll-auto">
-      <body  className='bg-zinc-200'>
+      <body>
+        <div className='bg-blog-background bg-fixed bg-cover h-full bg-center'>
         {/* <ErrorBoundary> */}
           <GlobalProvider>
-           
               <Navbar />
                 {children} 
-              <Footer />
-
           </GlobalProvider>
         {/* </ErrorBoundary> */}
+        </div>
+        
+        <Footer />
       </body>
     </html>
   );

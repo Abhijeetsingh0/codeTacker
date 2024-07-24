@@ -67,7 +67,8 @@ const BlogList = () => {
   }
 
   return (
-    <div className='container mt-8 mb-12'>
+    <div className='backdrop-blur-lg h-dvh overflow-auto pb-36'>
+      <div className='container mt-8'>
       <div className='flex items-center justify-center mb-8'>
         <Link href='/blog/newBlog'>
           <button title='Add new blog' className="flex items-center justify-center w-16 h-16 bg-emerald-500 text-white rounded-full shadow-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 ease-in-out">
@@ -82,6 +83,8 @@ const BlogList = () => {
         <BlogSection blogs={blogs}/>
       </div>
     </div>
+    </div>
+    
   );
 }
 

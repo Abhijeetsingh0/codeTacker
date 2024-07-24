@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        'blog-background' : "url('https://images.pexels.com/photos/2276928/pexels-photo-2276928.jpeg?auto=compress&cs=tinysrgb&w=600')"
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
