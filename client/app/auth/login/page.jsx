@@ -53,8 +53,9 @@ const Login = () => {
   const isFormValid = () => email && password;
 
   return (
+    <div className='backdrop-blur-xl h-dvh overflow-auto pb-36'>
     <div className="min-h-full flex flex-col items-center justify-center mt-16">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md bg-white">
+      <div className="p-8 rounded-xl shadow-md w-full max-w-md bg-white">
         <h2 className="text-2xl font-bold mb-6">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="">
@@ -94,6 +95,7 @@ const Login = () => {
           New User ?
         </button>
       </Link>
+    </div>
     </div>
   );
 }

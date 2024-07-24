@@ -25,3 +25,12 @@ module.exports.getBlogs = async ({email} ) => {
         console.log("Somthing went wrong while getting blog by email in services: ", err)
     }
 } 
+
+module.exports.getBlogById = async (id) => {
+    try{
+        const blogById = await blog.findById({_id:id})
+        return blogById
+    }catch(err){
+        console.log("Somthing went wrong while getting blog by ID in service: ", err)
+    }
+}

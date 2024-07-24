@@ -1,10 +1,9 @@
 'use client';
-// components/Navbar.js
+
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getTokenFromCookie } from './getUserData';
 import LogoutButton from './logout';
-// import { useGlobalState } from '@/contexts/globalStateContext';
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,7 +19,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-zinc-950 py-2 text-white text-xl sticky top-0 z-50">
+    <nav className="bg-zinc-950 py-4 text-white text-xl sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="font-bold text-2xl">
           CodeTracker

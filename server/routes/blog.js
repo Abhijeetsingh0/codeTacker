@@ -15,5 +15,6 @@ const uploads = multer({ storage });
 
 router.post('/', authenticate, uploads.array('images', 5), blogController.createBlog);
 router.get('/', authenticate, blogController.getBlogs);
+router.get('/:id', authenticate, blogController.getBlogById);
 
 module.exports = router;

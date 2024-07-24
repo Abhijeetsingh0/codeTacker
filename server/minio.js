@@ -20,7 +20,7 @@ const uploadToMinIO = (filePath, fileName, email) => {
             if (err) {
                 return reject(err);
             }
-            resolve(`http://0.0.0.0:9000/images/${email}-${fileName}`);
+            resolve(`http://0.0.0.0:9000/images/${fileName}`);
         });
     });
 };

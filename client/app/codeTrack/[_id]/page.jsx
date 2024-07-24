@@ -5,7 +5,6 @@ import withAuth from '@/app/components/withAuth';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Loading from "@/app/components/loading"
-// import CodeEdit from "./edit/edit"
 
 const Code = ({ params }) => {
   const [codeDetails, setCodeDetails] = useState({});
@@ -15,18 +14,8 @@ const Code = ({ params }) => {
   const [codeSize, setCodeSize] = useState('md');
   const [formData, setFormData] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [tagColors, setTagColors] = useState([]);
 
   const router = useRouter();
-
-  const generateColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -150,13 +139,6 @@ const Code = ({ params }) => {
     fetchCodeDetails();
   }, []);
 
-  useEffect(() => {
-    if (formData && formData.tags) {
-      const colors = formData.tags.map(() => generateColor());
-      setTagColors(colors);
-    }
-  }, [formData]);
-
   if (loading) {
     return (
      <Loading/>
@@ -268,7 +250,7 @@ const Code = ({ params }) => {
   }
 
   return (
-    <div>
+    <div className='backdrop-blur-xl h-dvh overflow-auto pb-36'>
       <div className="container mx-auto mt-4 grid grid-cols-3 items-center">
         <div className=''></div>
         <div className="mb-5 bg-emerald-500 shadow-lg bg-emerald-400/50 p-2 rounded-full text-xl justify-self-center sm:justify-self-center sm:w-2/3 w-full">
@@ -296,8 +278,7 @@ const Code = ({ params }) => {
             codeDetails.tags.map((tag, index) => (
               <span 
                 key={index} 
-                // style={{ backgroundColor: tagColors[index], color: "white" }} 
-                className="font-semibold bg-white shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 rounded-full"
+                className="bg-white shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 rounded-full"
               >
                 {tag.length > 7 ? tag.slice(0,5)+'..' : tag }
               </span>
