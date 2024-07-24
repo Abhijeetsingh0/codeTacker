@@ -21,6 +21,7 @@ module.exports = {
         'blog-background' : "url('https://images.pexels.com/photos/2276928/pexels-photo-2276928.jpeg?auto=compress&cs=tinysrgb&w=600')"
       },
       colors: {
+        // background: "#022c22",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

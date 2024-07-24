@@ -250,7 +250,7 @@ const Code = ({ params }) => {
   }
 
   return (
-    <div>
+    <div className='backdrop-blur-xl h-dvh overflow-auto pb-36'>
       <div className="container mx-auto mt-4 grid grid-cols-3 items-center">
         <div className=''></div>
         <div className="mb-5 bg-emerald-500 shadow-lg bg-emerald-400/50 p-2 rounded-full text-xl justify-self-center sm:justify-self-center sm:w-2/3 w-full">

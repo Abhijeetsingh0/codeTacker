@@ -108,6 +108,7 @@ const newBlog = () => {
     }
 
     return (
+        <div className='backdrop-blur-xl h-dvh overflow-auto pb-36'>
         <div className="flex">
             <div className="basis-1/2 container mt-4 mb-8 pl-32 pr-32 pb-16 pt-8">
                 <h1 className="text-3xl font-bold mb-6 text-center">New Blog</h1>
@@ -194,6 +195,7 @@ const newBlog = () => {
                 </form>
             </div>
             <div className="basis-1/2 mt-28" >
+            
                 <div className='container my-8 bg-white pt-8 pb-8 rounded-xl'>
                 <h1 className="text-2xl text-gray-600 px-4">Titile</h1>           
                 <div className='flex container'>
@@ -233,10 +235,9 @@ const newBlog = () => {
                         )
                     ))}
                 </div>
-
-
             </div>
             </div>
+        </div>
         </div>
     );
 }

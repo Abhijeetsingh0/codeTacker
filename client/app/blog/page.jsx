@@ -37,25 +37,25 @@ const BlogList = () => {
   const BlogSection = ({ blogs }) => {
     const router = useRouter();
     return blogs.map((blog, index) => (
-      <div key={index} className='flex items-stretch bg-white shadow-lg shadow-gray-400/50 rounded-xl mt-4 hover:text-xl text-justify'>
-        <div className='basis-2/3   py-4 px-8 mb-4 mx-12 '>
-          <div className='font-bold mt-8 mb-4'>
+      <div key={index} className='flex items-stretch bg-white shadow-lg shadow-gray-400/50 rounded-xl mt-4 text-justify'>
+        <div className='basis-4/5 px-8 '>
+          <div className='font-bold text-3xl mt-8 mb-4'>
             {blog.title.slice(0, 150)} ...
           </div>
-          <div className=''>
+          <div className='text-xl'>
             {blog.content.slice(0, 150)} ...
           </div>
           <div className='flex-auto w-1/5 '>
             <button
-              className='pl-8 pr-8 pt-2 pb-2 mt-8 border bg-emerald-500 rounded '
+              className='pl-8 pr-8 pt-2 pb-2 mt-4 border bg-emerald-500 rounded '
               onClick={() => router.push(`/blog/${blog._id}/`)}
             >
               View
             </button>
           </div>
         </div>
-        <div className='m-12' >
-          <img className='basis-1/3 md:basis-1 size-40 rounded' src={blog.images[0]}/>
+        <div className='py-4' >
+          <img className='basis-1/5 md:basis-1 size-48 rounded' src={blog.images[0]}/>
         </div>
       </div>
     ));
@@ -67,7 +67,7 @@ const BlogList = () => {
   }
 
   return (
-    <div className='backdrop-blur-lg h-dvh overflow-auto pb-36'>
+    <div className='backdrop-blur-xl h-dvh overflow-auto pb-36'>
       <div className='container mt-8'>
       <div className='flex items-center justify-center mb-8'>
         <Link href='/blog/newBlog'>
@@ -80,8 +80,9 @@ const BlogList = () => {
       </div>
 
       <div>
-        <BlogSection blogs={blogs}/>
+        <BlogSection  blogs={blogs}/>
       </div>
+
     </div>
     </div>
     

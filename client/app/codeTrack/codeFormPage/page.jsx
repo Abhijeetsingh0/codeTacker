@@ -88,64 +88,65 @@ const CodeForm = () => {
   }
 
   return (
-    <div className="container mt-10 mb-8 bg-zinc-200 shadow-lg shadow-gray-400/50 rounded-xl pl-32 pr-32 pb-16 pt-8">
+    <div className='backdrop-blur-xl h-dvh overflow-auto pb-36'>
+    <div className="container px-32 py-16 my-12 ">
       <h1 className="text-3xl font-bold mb-6 text-center">
         Save your code
       </h1>
       
       <form className="space-y-6" onSubmit={handleSubmit}>
         
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+        <div className="">
           <label className="block text-gray-700 font-semibold mb-1 ">Programming Language</label>
           <input
             type="text"
             name="programingLanguage"
             value={formData.programingLanguage}
             onChange={handleChange}
-            className="mt-1 block w-full p-3 border border-gray-300 rounded-xl bg-zinc-50 shadow-lg shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+            className="mt-1 block w-full p-3 border rounded-xl  shadow-md shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           />
         </div>
 
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+        <div className="">
           <label className="block text-gray-700 font-semibold mb-1">Question Link</label>
           <input
             type="text"
             name="quesLink"
             value={formData.quesLink}
             onChange={handleChange}
-            className="mt-1 block w-full p-3 border border-gray-300 rounded-xl bg-zinc-50 shadow-lg shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+            className="mt-1 block w-full p-3  rounded-xl border shadow-md shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           />
         </div>
 
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+        <div className="">
           <label className="block text-gray-700 font-semibold mb-1">Problem Statement</label>
           <textarea
             name="problemStatement"
             value={formData.problemStatement}
             onChange={handleChange}
             rows="3"
-            className="mt-1 block w-full p-3 border border-gray-300 rounded-xl bg-zinc-50 shadow-lg shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+            className="mt-1 block w-full p-3 border border-gray-300 rounded-xl shadow-lg shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           />
         </div>
 
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+        <div className="">
           <label className="block text-gray-700 font-semibold mb-1">Solution</label>
           <textarea
             name="solution"
             value={formData.solution}
             onChange={handleChange}
             rows="20"
-            className="mt-1 block w-full p-3 border border-gray-300 rounded-xl bg-zinc-50 shadow-lg shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+            className="mt-1 block w-full p-3 border rounded-xl shadow-lg shadow-gray-400/50 text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
           />
         </div>
 
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+        <div className="p-4">
           <label className="block text-gray-700 font-semibold mb-1">Tags</label>
           <div className="flex flex-wrap gap-2 mb-3">
             {formData.tags.map((tag, index) => (
               <span
                 key={index}
-                className="bg-zinc-50 text-gray-800 px-3 py-1 rounded-xl flex items-center font-semibold shadow-md"
+                className="text-gray-800 px-3 py-1 rounded-xl flex items-center font-semibold shadow-md"
               >
                 {tag}
                 <button
@@ -178,6 +179,7 @@ const CodeForm = () => {
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </form>
+    </div>
     </div>
   );
 };

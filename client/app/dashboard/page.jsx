@@ -13,14 +13,14 @@ import DoughnutChart from './doughnutChart';
 const CodeTrackSection = ({ codeTrack }) => {
   const router = useRouter();
   return codeTrack.map((data, index) => (
-    <div key={index}>
-      <div className='flex bg-white shadow-lg shadow-gray-400/50 p-4 pr-4 mt-4 mb-4 ml-5 rounded hover:text-xl text-justify'>
-        <div className='flex-auto w-4/5 overflow-auto pl-4 pr-16 border-r-4 border-emerald-300'>
+    <div key={index} className='overflow-auto'>
+      <div className='flex bg-white shadow-lg shadow-gray-400/50 p-4 pr-4 mt-4 mb-4 ml-5 rounded-xl hover:text-xl text-justify'>
+        <div className='flex-auto w-4/5 pl-4 pr-16 border-r-4 border-emerald-300'>
           {data.problemStatement.slice(0, 150)} ...
         </div>
         <div className='flex-auto pl-3 w-1/5'>
           <button
-            className='ml-8 pl-8 pr-8 pt-2 pb-2 border bg-emerald-500 rounded'
+            className='ml-8 pl-8 pr-8 pt-2 pb-2 border bg-emerald-500 rounded-xl'
             onClick={() => router.push(`/codeTrack/${data._id}/`)}
           >
             View
@@ -32,7 +32,6 @@ const CodeTrackSection = ({ codeTrack }) => {
 };
         
 const Dashboard = () => {
-  const [userData, setUserData] = useState({});
   const [codeTrack, setCodeTrack] = useState({ loading: true, data: [] });
   const [pageInit , setPageInit] = useState(false)
   const router = useRouter();
@@ -81,7 +80,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='backdrop-blur-lg h-dvh overflow-auto pb-36'>
+    <div className='backdrop-blur-xl h-dvh overflow-auto pb-36'>
       <div className='container mt-12'>
         <div className='flex justify-center'>
           <Link href='/codeTrack/codeFormPage'>
@@ -106,7 +105,7 @@ const Dashboard = () => {
             </div>
             <div className="bg-white shadow-lg shadow-gray-400/50 rounded-xl p-4 basis-3/5">
               <h2 className="text-lg font-bold mb-8">Activity</h2>
-              <CalenderPage />
+              <CalenderPage />  
             </div>
           </div>
         </div>
