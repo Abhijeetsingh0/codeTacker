@@ -8,6 +8,11 @@ import withAuth from '@/app/components/withAuth'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
+import MDEditor from "@uiw/react-md-editor";
+
+
 const blogById = ({params}) => {
     const [blog, setBlog] = useState({})
     const [loading, setLoading] = useState(false)
@@ -16,7 +21,6 @@ const blogById = ({params}) => {
     const router = useRouter()
   
     const fetchBlog = async () =>{
-        setLoading(true)
         try{
             const response = axios.get(`http://localhost:8000/blog/${params._id}`, {
                 headers: {
@@ -50,10 +54,11 @@ const blogById = ({params}) => {
       };
 
     useEffect(()=>{
+        setLoading(true)
         fetchBlog()
     },[])
 
-    if( loading){
+    if(loading){
         return(
             <Loading/>
         )
@@ -78,16 +83,16 @@ const blogById = ({params}) => {
                             <span className='text-'>{formatDate(blog.createdAt)}</span>
                         </div>
                     </div> 
-                    <div className='text-5xl px-16 text-emerald-500 basis-4/6'>
-                        {String(blog.title).toUpperCase()}
+                    <div className='text-5xl px-16 text-black underline basis-4/6'>
+                        {blog.title && String(blog.title).toUpperCase()}
                     </div>                   
                 </div>
 
                 <div className='mt-12 container px-24'>
-                    {contentSection.map((content,index)=>(
+                    {contentSection && contentSection.map((content,index)=>(
                         (
                             <div key={index}>
-                                <div className='text-2xl text-gray-900'> {content} </div>
+                                <div data-color-mode="light" > <MDEditor.Markdown source={content} style={{background: "none", fontSize: "26px"}} />  </div>
                                 {/* {blog.images.length > index ? <img className='flex items-center justify-center container w-full h-fit my-8 ' src={blog.images[index]}/> : ""} */}
                                 {blog.images.length > index ? 
                                     (<div className="container flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
