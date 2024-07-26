@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { getTokenFromCookie } from '../components/getUserData';
 import axios from 'axios';
 import withAuth from '../components/withAuth';
+import Loading  from "@/app/components/loading"
 import { useRouter } from 'next/navigation';
 
 const BlogList = () => {
@@ -63,7 +64,7 @@ const BlogList = () => {
 
 
   if (loading) {
-    return <span>Loading...</span>;
+    return <Loading message="Loading blogs ...."/>
   }
 
   return (

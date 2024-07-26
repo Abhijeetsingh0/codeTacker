@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/app/components/navbar"
 import { GlobalProvider } from "@/contexts/globalStataeContext";
 import Footer from "@/app/components/footer";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import Error from "@/app/components/errorBoundary"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,12 +14,12 @@ export default function RootLayout({ children }) {
     <html lang="en" className="scroll-smooth focus:scroll-auto">
       <body>
         <div className='bg-blog-background bg-fixed bg-cover h-full bg-center'>
-        {/* <ErrorBoundary> */}
+        <ErrorBoundary fallback={<Error/>}>
           <GlobalProvider>
               <Navbar />
                 {children} 
           </GlobalProvider>
-        {/* </ErrorBoundary> */}
+        </ErrorBoundary>
         </div>
         
         <Footer />

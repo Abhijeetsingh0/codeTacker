@@ -21,7 +21,6 @@ const newBlog = () => {
     });
 
     const [contentValue, setContentValue] = useState("**Here Comes your content**, *And you can upload the local image from bottom upload* !")
-
     const [images, setImages] = useState([]);
     const [contentSection, setContentSection] = useState([])
 
@@ -74,7 +73,6 @@ const newBlog = () => {
                 router.push('/auth/login');
                 return;
             }
-
             const data = new FormData();
             data.append('title', formData.title);
             data.append('content', contentValue);
@@ -102,7 +100,6 @@ const newBlog = () => {
             }
         }
     };
- 
 
     if (isSubmitting) {
         return <Loading message={"Submitting..."} />;
@@ -160,7 +157,6 @@ const newBlog = () => {
                 </div>
             </div>
 
-    
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <div className="bg-gray-100 p-4 rounded-xl shadow-md">
                         <label className="block text-gray-700 font-semibold mb-1">Title</label>
@@ -249,7 +245,5 @@ const newBlog = () => {
         </div>
     );
 }
-
-
 
 export default withAuth(newBlog);
