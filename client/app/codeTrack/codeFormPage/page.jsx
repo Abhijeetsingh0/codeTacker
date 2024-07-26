@@ -170,7 +170,7 @@ const CodeForm = () => {
         <button
           type="submit"
           disabled={!isFormValid() || isSubmitting}
-          className={`w-full px-4 py-2 rounded-lg shadow-lg ${
+          className={`w-64 px-4 py-2 rounded-xl shadow-lg ${
             !isFormValid() || isSubmitting
               ? 'bg-gray-400 cursor-not-allowed'
               : 'bg-blue-500 text-white hover:bg-blue-600'
