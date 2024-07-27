@@ -1,81 +1,32 @@
 'use client'
+
 import withAuth from '@/app/components/withAuth';
-import {fetchUserProfile} from '@/app/components/getUserData'
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import {getTokenFromCookie} from "@/app/components/getUserData"
 import Link  from 'next/link';
 import { useRouter } from 'next/navigation';
 import Loading from '@/app/components/loading';
 import CalenderPage from './calender';
 import DoughnutChart from './doughnutChart';
-
-const CodeTrackSection = ({ codeTrack }) => {
-  const router = useRouter();
-  return codeTrack.map((data, index) => (
-    <div key={index} className='overflow-auto'>
-      <div className='flex bg-white shadow-lg shadow-gray-400/50 p-4 pr-4 mt-4 mb-4 ml-5 rounded-xl hover:text-xl text-justify'>
-        <div className='flex-auto w-4/5 pl-4 pr-16 border-r-4 border-emerald-300'>
-          {data.problemStatement.slice(0, 150)} ...
-        </div>
-        <div className='flex-auto pl-3 w-1/5'>
-          <button
-            className='ml-8 pl-8 pr-8 pt-2 pb-2 border bg-emerald-500 rounded-xl'
-            onClick={() => router.push(`/codeTrack/${data._id}/`)}
-          >
-            View
-          </button>
-        </div>
-      </div>
-    </div>
-  ));
-};
+import {fetchCodeTrack} from "@/apis/codeTrackerApis"
         
 const Dashboard = () => {
-  const [codeTrack, setCodeTrack] = useState({ loading: true, data: [] });
-  const [pageInit , setPageInit] = useState(false)
+  const [codeTrack, setCodeTrack] = useState({data: []});
   const router = useRouter();
 
-  const fetchCodeTrack = async () => {
-    const token = getTokenFromCookie; // Correctly call the function to get the token
-    if (!token) {
-      router.push("/auth/login");
-      return; // Prevent further execution
-    }
-  
-    try {
-      const response = await axios.get('http://localhost:8000/codeTracker/', {
-        headers: {
-          'authorization': `Bearer ${token}`, // Correct spelling of "Bearer"
-        },
-      });
-      setCodeTrack({ loading: false, data: response.data.body });
-    } catch (error) {
-      console.error('Error fetching codeTrack:', error);
-    }
-  };
-
-  const fetchUserProfileData = async () => {
-    try {
-      const data = await fetchUserProfile();
-      setUserData(data.body);
-    } catch (error) {
-      console.error("Something went wrong while fetching the user data in dashboard", error);
-    }
-  };
-
   useEffect(() => {
-    setPageInit(true)
-    fetchUserProfileData();
+    
     fetchCodeTrack()
-    setPageInit(false)
+    .then((data)=>{setCodeTrack({data:data})})
+    .catch((error)=>{
+      alert(error)
+      router.push('/')
+    })
+  
   }, []); // Empty dependency array to run once on mount
 
-  if(pageInit){
+  if(codeTrack.data.length <= 0){
     return(
-      <div>
         <Loading />
-      </div>
     )
   }
 
@@ -119,6 +70,27 @@ const Dashboard = () => {
       </div>
     </div>
   );
+};
+
+const CodeTrackSection = ({ codeTrack }) => {
+  const router = useRouter();
+  return codeTrack.map((data, index) => (
+    <div key={index} className='overflow-auto'>
+      <div className='flex bg-white shadow-lg shadow-gray-400/50 p-4 pr-4 mt-4 mb-4 ml-5 rounded-xl hover:text-xl text-justify'>
+        <div className='flex-auto w-4/5 pl-4 pr-16 border-r-4 border-emerald-300'>
+          {data.problemStatement.slice(0, 150)} ...
+        </div>
+        <div className='flex-auto pl-3 w-1/5'>
+          <button
+            className='ml-8 pl-8 pr-8 pt-2 pb-2 border bg-emerald-500 rounded-xl'
+            onClick={() => router.push(`/codeTrack/${data._id}/`)}
+          >
+            View
+          </button>
+        </div>
+      </div>
+    </div>
+  ));
 };
 
 export default withAuth(Dashboard);

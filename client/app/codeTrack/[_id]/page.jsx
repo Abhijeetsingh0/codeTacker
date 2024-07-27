@@ -1,10 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { getTokenFromCookie } from '@/app/components/getUserData';
 import withAuth from '@/app/components/withAuth';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Loading from "@/app/components/loading"
+import {deleteCodeTrack, fetchCodeDetails, putCodeTracker} from "@/apis/codeTrackerApis"
 
 const Code = ({ params }) => {
   const [codeDetails, setCodeDetails] = useState({});
@@ -58,22 +57,16 @@ const Code = ({ params }) => {
     if (isFormValid()) {
       setIsSubmitting(true);
 
-      if (!getTokenFromCookie) {
-        alert('Please login');
-        router.push('/auth/login')
-      }
-      try {
-          const response = await axios.put(`http://localhost:8000/codeTracker/${params._id}`, formData ,{
-              headers: {
-                  'Authorization': `Bearer ${getTokenFromCookie}`
-              }
-          });
+      putCodeTracker(formData, params._id)
+      .then(()=>{
           alert("The changes have been saved!")
           setCodeDetails(formData)
           setIsEditing(false)
-      } catch (error) {
-          console.error('Something went wrong:', error.response ? error.response.data : error.message);
-         } 
+      })
+      .catch((error)=>{
+        alert(error)
+        console.log(error)
+      })
 
       setIsSubmitting(false); // Reset submitting state
     }
@@ -81,41 +74,6 @@ const Code = ({ params }) => {
 
   if(isSubmitting){
     <Loading message={"Submitting...."} />
-  }
-
-  const fetchCodeDetails = async () => {
-    try {
-      const response = axios.get(`http://localhost:8000/codeTracker/${params._id}`, {
-        headers: {
-          Authorization: `Bearer ${getTokenFromCookie}`,
-        },
-      });
-      setCodeDetails((await response).data.body);
-      setFormData((await response).data.body)
-      setLoading(false);
-    } catch (err) {
-      console.log('something went wrong while fetching the code details with _id :', err);
-      setError({
-        status: true,
-        message: "Something went wrong while fetching the code details",
-        error: err,
-      });
-    }
-  };
-
-  const deleteCodeTrack = async () => {
-    try{
-      const response = axios.delete(`http://localhost:8000/codeTracker/${params._id}`,{
-        headers:{
-          Authorization: `Bearer ${getTokenFromCookie}`,
-        }
-      })
-      router.push('/dashboard')
-    }catch(err){
-      console.log(`somthing went wrong while deleteing code id ${params._id} with error ${err}`)
-    }finally{
-      router.push('/dashboard')
-    }
   }
 
   const formatDate = (isoString) => {
@@ -132,11 +90,22 @@ const Code = ({ params }) => {
   };
 
   useEffect(() => {
-    if (getTokenFromCookie === undefined) {
-      router.push('/auth/login');
-    }
+  
+    fetchCodeDetails(params._id)
+    .then((response)=>{
+      setCodeDetails(response.data.body);
+      setFormData(response.data.body)
+      setLoading(false);
 
-    fetchCodeDetails();
+    }).catch((err)=>{
+      console.log('something went wrong while fetching the code details with _id :', err);
+      setError({
+        status: true,
+        message: "Something went wrong while fetching the code details",
+        error: err,
+      });
+    })
+
   }, []);
 
   if (loading) {
@@ -269,7 +238,7 @@ const Code = ({ params }) => {
           <button className='font-semibold bg-white shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 mb-3 ml-5 rounded-full' onClick={() => setCodeSize('text-xl')}>Large</button>
         </div>
 
-        <button onClick={()=>deleteCodeTrack()} className='mt-4 bg-red-400 shadow-lg shadow-red-400/50 p-1 pl-4 pr-4 rounded-xl text-xl'>Delete</button>
+        <button onClick={()=>deleteCodeTrack(params._id).then(()=>{router.push('/dashboard')})} className='mt-4 bg-red-400 shadow-lg shadow-red-400/50 p-1 pl-4 pr-4 rounded-xl text-xl'>Delete</button>
         <button onClick={()=>{setIsEditing(true)}} className='mt-4 ml-8 bg-cyan-300 shadow-lg shadow-cyan-400/50 p-1 pl-8 pr-8 rounded-xl text-xl'>Edit</button>
 
         <h2 className='font-bold text-2xl mb-2 mt-5 underline'>Tags</h2>
