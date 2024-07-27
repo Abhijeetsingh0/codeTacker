@@ -7,6 +7,7 @@ import { useGlobalDispatch } from '@/contexts/globalStataeContext';
 import { getTokenFromCookie } from '@/app/components/getUserData'
 import { useEffect } from 'react';
 import Link from 'next/link'
+import {login} from "@/apis/authApis"
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -27,27 +28,22 @@ const Login = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      const response = await axios.post('http://localhost:8000/auth/login', {
-        email,
-        password,
-      });
-      const token = response.data.token;
-
-      // Set the token in a cookie with a TTL of 1 hour (3600 seconds)
+  
+    await login(email,password)
+    .then((token)=>{
+      
       Cookies.set('token', token, { expires: 1 / 24 });
-
       dispatch({type: 'SET_TOKEN', payload: token})
-      // Redirect to homepage or any other page
       window.location.replace('/dashboard')
-
       router.push('/dashboard');
-
-    } catch (error) {
-      alert('Login failed: ' + error.message);
-    } finally {
-      setIsSubmitting(false);
-    }
+      setIsSubmitting(false)
+    }).catch((error)=>{
+      
+      alert("Got error while login: ",error)
+      console.log("Got error while login: ",error)
+    
+    })
+    
   };
 
   const isFormValid = () => email && password;

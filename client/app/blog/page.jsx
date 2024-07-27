@@ -62,8 +62,7 @@ const BlogList = () => {
     ));
   };
 
-
-  if (loading) {
+  if (loading && !blogs) {
     return <Loading message="Loading blogs ...."/>
   }
 

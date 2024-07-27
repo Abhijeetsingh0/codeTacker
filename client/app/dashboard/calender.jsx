@@ -2,35 +2,23 @@
 import Calendar from "react-calendar";
 import 'react-calendar/dist/Calendar.css';
 import { useState, useEffect } from "react";
-import { getTokenFromCookie } from "../components/getUserData";
-import axios from "axios";
 import './dashboard.css'
+import { fetchCalendarData } from "@/apis/dashboardApis";
+import Loading from "@/app/components/loading"
 
 const CalendarComponent = () => {
     const [calendarData, setCalendarData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchCalendarData = async () => {
-        try {
-            const response = await axios.get('http://localhost:8000/codeTracker/getCodeTrackerCalendar', {
-                headers: {
-                    'authorization': `Bearer ${getTokenFromCookie}`, // Call getTokenFromCookie as a function
-                },
-            });
-
-            // Convert API dates to JavaScript Date objects
-            const apiDates = response.data.body.map(dateStr => new Date(dateStr));
-            const todayDate = new Date();
-            setCalendarData([...apiDates, todayDate]);
-            setLoading(false);
-        } catch (err) {
-            console.log("Something went wrong while fetching data for calendar:", err);
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
-        fetchCalendarData();
+        fetchCalendarData().
+        then((data)=>{
+            const todayDate = new Date();
+            setCalendarData([...data, todayDate]);
+            setLoading(false);
+        }).catch((error)=>{
+            alert(err)
+        })
     }, []);
 
     // Helper function to check if a date should be marked
@@ -53,7 +41,7 @@ const CalendarComponent = () => {
     return (
         <div className='w-full'>
             {loading ? (
-                <div>Loading ...</div>
+                <Loading message="Loading calendar ..."/>
             ) : (
                 <div>
                     <Calendar

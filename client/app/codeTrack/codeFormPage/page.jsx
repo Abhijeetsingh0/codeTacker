@@ -1,10 +1,10 @@
 'use client'
 import { useState } from "react";
-import axios from "axios";
 import {getTokenFromCookie} from "@/app/components/getUserData"
 import {useRouter} from 'next/navigation'
 import withAuth from "@/app/components/withAuth";
 import Loading from "@/app/components/loading";
+import { postCodeTracker } from "@/apis/codeTrackerApis"
 
 const CodeForm = () => {
   const [formData, setFormData] = useState({
@@ -58,28 +58,24 @@ const CodeForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isFormValid()) {
+    if(isFormValid()) {
       setIsSubmitting(true);
 
       if (!getTokenFromCookie) {
         alert('Please login');
         router.push('/auth/login')
       }
-      try {
-          const response = await axios.post("http://localhost:8000/codeTracker", formData ,{
-              headers: {
-                  'Authorization': `Bearer ${getTokenFromCookie}`
-              }
-          });
-          router.push('/dashboard')
-      } catch (error) {
-          console.error('Something went wrong:', error.response ? error.response.data : error.message);
-         } 
       
-      //once submitted route to dashboard
-      router.push('/dashboard')
-      // Handle form submission, e.g., send data to an API
-      setIsSubmitting(false); // Reset submitting state
+      await postCodeTracker(formData)
+      .then((data)=>{
+        console.log(data.data.body.message)
+        router.push('/dashboard')
+      })
+      .catch((error)=>{
+        alert(error)
+      })      
+
+      setIsSubmitting(false);
     }
   };
 

@@ -1,11 +1,10 @@
 'use client'
-import { getTokenFromCookie } from "@/app/components/getUserData";
 import { useState, useEffect} from "react";
 import Loading from "@/app/components/loading";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 import withAuth from "@/app/components/withAuth";
 import Image from "next/image"
+import {postBlog} from "@/apis/blogApis"
 
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
@@ -65,14 +64,9 @@ const newBlog = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isFormValid()) {
+        if(isFormValid()) {
             setIsSubmitting(true);
 
-            if (!getTokenFromCookie) {
-                alert('Please login');
-                router.push('/auth/login');
-                return;
-            }
             const data = new FormData();
             data.append('title', formData.title);
             data.append('content', contentValue);
@@ -82,22 +76,15 @@ const newBlog = () => {
                 data.append('images', image);
             });
 
-            console.log("FormData before sending request:", data);
+            await postBlog(data)
+            .then(()=>{ router.push('/blog') })
+            .catch((error)=>{
+                alert('Something went wrong:',error)
+                console.error(error.response ? error.response.data : error.message);
+            })
 
-            try {
-                const response = await axios.post("http://localhost:8000/blog", data, {
-                    headers: {
-                        'Authorization': `Bearer ${getTokenFromCookie}`,
-                        'Content-Type': 'multipart/form-data',
-                    }
-                });
-                router.push('/blog');
-            } catch (error) {
-                alert('Something went wrong:', error.response ? error.response.data : error.message);
-                console.error('Something went wrong:', error.response ? error.response.data : error.message);
-            } finally {
-                setIsSubmitting(false);
-            }
+            setIsSubmitting(false);
+            
         }
     };
 

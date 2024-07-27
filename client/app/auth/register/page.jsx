@@ -19,20 +19,19 @@ const RegisterUser = () => {
       }
   
       setIsSubmitting(true);
-  
-      try {
-        console.log('http://'+"localhost:8000"+'/auth/register')
-        await axios.post('http://'+"localhost:8000"+'/auth/register', {
-          username,
-          email,
-          password,
-        });
-        router.push('/auth/login')
-      } catch (error) {
-        alert('Signup failed! , Error :',error);
-      } finally {
-        setIsSubmitting(false);
-      }
+        try {
+          console.log('http://'+"localhost:8000"+'/auth/register')
+          await axios.post('http://'+"localhost:8000"+'/auth/register', {
+            username,
+            email,
+            password,
+          });
+          router.push('/auth/login')
+        } catch (error) {
+          alert('Signup failed! , Error :',error);
+        } finally {
+          setIsSubmitting(false);
+        }
     };
   
     const isFormValid = () =>
