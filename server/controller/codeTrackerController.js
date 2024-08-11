@@ -106,3 +106,19 @@ module.exports.putCodeTracker = async(req, res) => {
     }
     return res.status(response.status).send(response)
 }
+
+module.exports.queryCodeTracker = async(req, res) =>{
+    const response = {}
+    const query = req.body
+    try{
+        const queryCodeTrackerRes = await CodeTrackerService.queryCodeTracker(query)
+        response.status = 200
+        response.body = queryCodeTrackerRes
+    }catch(err){
+        console.log("Somthing went wrong in CodeTracker controller while queryCodeTracker:",err)
+        response.status = 400
+        response.message = err.message
+        response.body = {}
+    }
+    return res.status(response.status).send(response)
+}

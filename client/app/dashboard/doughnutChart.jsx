@@ -1,14 +1,24 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { Doughnut, Line } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
 const doughnutChart = ({data}) => {
     const [chartData, setChartData] = useState({});
-
+    const [dataGraph, setDataGraph] = useState({})
 
     const prepareData = async (data) => {
         // Process data to get tag frequencies
@@ -33,7 +43,6 @@ const doughnutChart = ({data}) => {
         };
         setChartData(chartData)
     };
-
 
     useEffect(() => {
         prepareData(data)

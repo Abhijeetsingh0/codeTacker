@@ -3,6 +3,8 @@ const router = express.Router();
 const CodeTrackerController = require("../controller/codeTrackerController")
 const {authenticate} = require("../middlewares/auth")
 
+router.post('/query',CodeTrackerController.queryCodeTracker)
+
 router.post("/", authenticate, CodeTrackerController.createCodeTracker)
 router.get("/", authenticate, CodeTrackerController.getCodeTrackers)
 router.get('/getCodeTrackerCalendar',authenticate,CodeTrackerController.getCodeTrackerCalender)

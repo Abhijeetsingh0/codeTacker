@@ -1,17 +1,21 @@
 const CodeTracker = require("../database/model/codeTracker")
+const opensearchCodeTracker = require("../opensearch/codetracker")
 
 module.exports.createCodeTracker = async (user ,codeTrackerData) => {
     try {
         // console.log(codeTrackerData);
-        const newCodeTracker = new CodeTracker({
+        const data = {
             quesLink: codeTrackerData.quesLink,
             problemStatement: codeTrackerData.problemStatement,
             programingLanguage: codeTrackerData.programingLanguage,
             solution: codeTrackerData.solution,
             tags: codeTrackerData.tags,
             email: user.email
-        });
-        return await newCodeTracker.save();
+        }
+        // const newCodeTracker = new CodeTracker(data);
+        opensearchCodeTracker.codeTrackerEntryOnOs(data)
+        // return await newCodeTracker.save();
+        return {}
     } catch (err) {
         console.log("Something went wrong while creating CodeTracker: ", err);
         throw err;  // Rethrow the error for further handling if necessary
@@ -63,3 +67,29 @@ module.exports.putCodeTracker = async (id, newBody) => {
         console.log("somthing went wrong while putCodeTracker service :",err)
     }
 } 
+
+module.exports.queryCodeTracker = async (queryData) => {
+    const query = {
+        query: {
+            match: {
+                title: {
+                    query: queryData.title,
+                },
+            },
+        },
+    };
+
+    try {
+        const response = await opensearchCodeTracker.getAllCodeTracker(query);
+        const data = {
+            response: response.body.hits.hits
+        };
+        return data.response;
+    } catch (err) {
+        console.log("Something went wrong while querying the service", err);
+        return {
+            response: "Something went wrong while querying the service",
+            error: err
+        };
+    }
+};
