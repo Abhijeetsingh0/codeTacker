@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-zinc-950 py-4 text-white text-xl sticky top-0 z-50">
+    <nav className="bg-gray-800 py-4 text-white text-xl sticky top-0 z-50 border-b border-white">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="font-bold text-2xl">
           CodeTracker
@@ -45,21 +45,21 @@ const Navbar = () => {
             isOpen ? 'block' : 'hidden'
           }`}
         >
-          <Link href="/about" className="block md:inline-block text-white hover:text-gray-400 pr-4">
+          <Link href="/about" className="border border-white py-1 px-2 md:inline-block text-white hover:text-gray-400 pr-4">
             About
           </Link>
           {isLoggedIn ? (
             <>
-              <Link href="/dashboard" className="block md:inline-block text-white hover:text-gray-400 pr-4">
+              <Link href="/dashboard" className="border border-white py-1 px-2 md:inline-block text-white hover:text-gray-400 pr-4">
                 Dashboard
               </Link>
-              <Link href="/blog" className="block md:inline-block text-white hover:text-gray-400 pr-4">
+              <Link href="/blog" className="border border-white py-1 px-2 md:inline-block text-white hover:text-gray-400 pr-4">
                 Blog
               </Link>
               <LogoutButton />
             </>
           ) : (
-            <Link href="/auth/login" className="block md:inline-block text-white hover:text-gray-400 pr-4">
+            <Link href="/auth/login" className="border border-white py-1 px-2 md:inline-block text-white hover:text-gray-400 pr-4">
               Login
             </Link>
           )}

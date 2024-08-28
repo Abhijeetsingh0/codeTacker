@@ -56,9 +56,9 @@ const blogById = ({params}) => {
     }
 
     return (
-        <div className='bg-blog-background backdrop-blur-lgbg-fixed bg-cover bg-center '>
+        <div className=''>
             <div className=' backdrop-blur-lg pt-12'>
-                <div className=' container bg-white rounded-xl py-8 bg-opacity-50'>
+                <div className=' container bg-white rounded-xl py-8'>
                 <div className='container'>
                     <div className='grid grid-cols-4 w-full mb-8'>
                         <div className='text-gray-500 px-4'>

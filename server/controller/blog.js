@@ -39,7 +39,6 @@ module.exports.getBlogs = async (req, res) => {
 module.exports.getBlogById = async (req, res) => {
     const response = {}
     const {id} = req.params
-    console.log(id,'erer')
     try{
         const serviceResponse = await getBlogById(id)
         response.status = 200

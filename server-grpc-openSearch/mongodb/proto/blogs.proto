@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+service BlogService{
+    rpc BlogChanges (BlogRequest) returns (BlogResponse) {};
+}
+
+message BlogRequest {
+    string operationType =1;
+    string id = 2;
+    string title = 3;
+    string content = 4;
+    repeated string images = 5;
+    string email = 6;
+    string quesId = 7;
+    string commentId = 8;
+    string createdAt = 9;
+    string updatedAt = 10;
+    int32 v = 11;
+}
+
+message BlogResponse {
+    string id = 1;
+    string message = 2;
+}
+
+    
+
+

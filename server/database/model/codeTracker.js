@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+
+
 const codeTrackerSchema = new mongoose.Schema({
     quesLink: {
         type: String,
@@ -30,7 +32,9 @@ const codeTrackerSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model("codeTrack", codeTrackerSchema);
+const codeTrack = mongoose.model("codeTrack", codeTrackerSchema)
+
+module.exports = codeTrack
 
 
 // exmple data

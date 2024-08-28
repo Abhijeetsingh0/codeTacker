@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth focus:scroll-auto">
       <body>
-        <div className='bg-blog-background bg-fixed bg-cover h-full bg-center'>
+        <div className='bg-gray-800 h-full bg-center border border-white'>
         <ErrorBoundary fallback={<Error/>}>
           <GlobalProvider>
               <Navbar />
