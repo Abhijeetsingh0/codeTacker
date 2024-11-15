@@ -19,7 +19,7 @@ const uploadToMinIO = (filePath, fileName) => {
             if (err) {
                 return reject(err);
             }
-            resolve(`http://127.0.0.1:9000/images/${fileName}`);
+            resolve(`http://0.0.0.0:9000/images/${fileName}`);
         });
     });
 };

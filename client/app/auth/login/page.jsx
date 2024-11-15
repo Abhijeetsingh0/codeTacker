@@ -19,6 +19,7 @@ const Login = () => {
   
   useEffect(()=>{
     const tokenCookie = getTokenFromCookie
+    print(tokenCookie)
     if(tokenCookie){
       router.push('/dashboard')
     }

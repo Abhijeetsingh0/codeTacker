@@ -26,7 +26,7 @@ const BlogList = () => {
         },
       });
       setBlogs(response.data.body);
-      // console.log(response.data.body)
+      console.log(response.data.body)
       setLoading(false);
     } catch (error) {
       console.error('Error fetching blogs:', error);
@@ -39,7 +39,7 @@ const BlogList = () => {
     const router = useRouter();
     return blogs.map((blog, index) => (
       <div key={index} className='flex items-stretch bg-white shadow-lg shadow-gray-400/50 rounded-xl mt-4 text-justify'>
-        <div className='basis-4/5 px-8 '>
+        <div className='basis-4/5 px-8 py-8 px-2'>
           <div className='font-bold text-3xl mt-8 mb-4'>
             {blog.title.slice(0, 150)} ...
           </div>
@@ -56,7 +56,7 @@ const BlogList = () => {
           </div>
         </div>
         <div className='py-4' >
-          <img className='basis-1/5 md:basis-1 size-48 rounded' src={blog.images[0]}/>
+        { blog.images.length <= 0 ? (<></>) : (<img className='basis-1/5 md:basis-1 size-48 rounded' src={blog.images[0]}/>) }
         </div>
       </div>
     ));
@@ -80,7 +80,7 @@ const BlogList = () => {
       </div>
 
       <div>
-        <BlogSection  blogs={blogs}/>
+        <BlogSection blogs={blogs}/>
       </div>
 
     </div>

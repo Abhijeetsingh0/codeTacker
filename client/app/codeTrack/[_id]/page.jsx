@@ -247,7 +247,7 @@ const Code = ({ params }) => {
             codeDetails.tags.map((tag, index) => (
               <span 
                 key={index} 
-                className="bg-white shadow-lg shadow-gray-400/50 pl-4 pr-4 mt-3 rounded-full"
+                className="bg-white w-20 shadow-lg shadow-gray-400/50 pl-4 pr-6 mt-3 mr-6 rounded-full"
               >
                 {tag.length > 7 ? tag.slice(0,5)+'..' : tag }
               </span>
@@ -256,10 +256,10 @@ const Code = ({ params }) => {
         </div>
 
         <h2 className='font-bold text-2xl mb-2 mt-5 underline'>Problem statment</h2>
-        <pre className={`bg-white border border-zinc-600 p-3 overflow-auto ${codeSize}`}>{codeDetails.problemStatement}</pre>
+        <pre className={`bg-white border rounded-xl border-zinc-600 p-3 overflow-auto ${codeSize}`}>{codeDetails.problemStatement}</pre>
 
         <h2 className='font-bold text-2xl mb-2 mt-8 underline'>Solution</h2>
-        <pre className={`bg-white border border-zinc-600 p-3 overflow-auto mb-16 ${codeSize}`}>{codeDetails.solution}</pre>
+        <pre className={`bg-white border rounded-xl border-zinc-600 p-3 overflow-auto mb-16 ${codeSize}`}>{codeDetails.solution}</pre>
 
       </div>
     </div>

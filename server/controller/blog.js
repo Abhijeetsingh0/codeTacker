@@ -5,7 +5,7 @@ module.exports.createBlog = async (req, res) => {
     const response = {};
     const user = req.user;
     const files = req.files;
-    const imageUrl = files ? await Promise.all(files.map(file => uploadToMinIO(file.path, file.filename, user.email))) : [];
+    const imageUrl = files ? await Promise.all(files.map(file => uploadToMinIO(file.path, file.filename))) : [];
     const data = { ...req.body, email: user.email, images: imageUrl };
     try {
         const responseFromService = await createBlog(data);
@@ -39,7 +39,6 @@ module.exports.getBlogs = async (req, res) => {
 module.exports.getBlogById = async (req, res) => {
     const response = {}
     const {id} = req.params
-    console.log(id,'erer')
     try{
         const serviceResponse = await getBlogById(id)
         response.status = 200

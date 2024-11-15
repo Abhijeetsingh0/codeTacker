@@ -26,7 +26,24 @@ const Dashboard = () => {
 
   if(codeTrack.data.length <= 0){
     return(
-        <Loading />
+        <div className='backdrop-blur-xl h-dvh overflow-auto'>
+        <div className=''></div>
+        <div className='flex justify-center my-12'>
+          <Link href='/codeTrack/codeFormPage'>
+            <button title='Add new code' className="flex items-center justify-center w-16 h-16 bg-emerald-500 text-white rounded-full shadow-lg hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300 ease-in-out">
+              <svg
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-8 h-8"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+              </svg>
+            </button>
+          </Link>
+        </div>
+        <div className='flex justify-center text-3xl'>No code yet create one by clicking the above add Icon !</div>
+        </div>
     )
   }
 

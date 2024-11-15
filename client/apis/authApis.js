@@ -12,4 +12,4 @@ module.exports.login = async (email, password) =>{
     } catch (error) {
         throw new Error("Got error while login: ",error)
     }
-} 
+}
